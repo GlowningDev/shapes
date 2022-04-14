@@ -21,6 +21,7 @@ public class ShapeDraftman implements ShapeVisitor {
     public void visitRectangle(SRectangle r) {
         ColorAttributes ca = (ColorAttributes) r.getAttributes(ColorAttributes.ID);
         SelectionAttributes sa = (SelectionAttributes) r.getAttributes(SelectionAttributes.ID);
+        //new MouseTranslator(r.getRect().x,r.getRect().y);
 
         if (ca.filled) {
             g.setColor(ca.filledColor);
