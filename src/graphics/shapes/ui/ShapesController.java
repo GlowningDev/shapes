@@ -62,10 +62,6 @@ public class ShapesController extends Controller {
         return null;
     }
 
-    private boolean shiftDown() {
-        return false;
-    }
-
     private void unselectAll() {
         SCollection coll = (SCollection) getView().getModel();
         coll.iterator().forEachRemaining(shape -> {
