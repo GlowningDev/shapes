@@ -7,16 +7,11 @@ import graphics.shapes.attributes.SelectionAttributes;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.*;
-import javax.swing.*;
-import java.awt.event.MouseListener;
 import java.util.Iterator;
 
 public class ShapeDraftman implements ShapeVisitor {
     public static final ColorAttributes DEFAULTCOLORATTRIBUES = new ColorAttributes(false, true, Color.BLACK, Color.BLACK);
     private final Graphics g;
-    private JLabel label;
-    //MouseListener mouse = label.MouseListener;
 
     public ShapeDraftman(Graphics g) {
         this.g = g;
@@ -26,6 +21,7 @@ public class ShapeDraftman implements ShapeVisitor {
     public void visitRectangle(SRectangle r) {
         ColorAttributes ca = (ColorAttributes) r.getAttributes(ColorAttributes.ID);
         SelectionAttributes sa = (SelectionAttributes) r.getAttributes(SelectionAttributes.ID);
+        //new MouseTranslator(r.getRect().x,r.getRect().y);
 
         if (ca.filled) {
             g.setColor(ca.filledColor);
