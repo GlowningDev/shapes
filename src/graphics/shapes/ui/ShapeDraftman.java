@@ -7,11 +7,16 @@ import graphics.shapes.attributes.SelectionAttributes;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.*;
+import javax.swing.*;
+import java.awt.event.MouseListener;
 import java.util.Iterator;
 
 public class ShapeDraftman implements ShapeVisitor {
     public static final ColorAttributes DEFAULTCOLORATTRIBUES = new ColorAttributes(false, true, Color.BLACK, Color.BLACK);
     private final Graphics g;
+    private JLabel label;
+    //MouseListener mouse = label.MouseListener;
 
     public ShapeDraftman(Graphics g) {
         this.g = g;
