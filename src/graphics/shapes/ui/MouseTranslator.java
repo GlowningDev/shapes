@@ -1,24 +1,21 @@
 package graphics.shapes.ui;
 
-import java.awt.Color;
+import graphics.shapes.attributes.ColorAttributes;
+
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
 public class MouseTranslator extends JFrame implements MouseListener{
 
-    JLabel label;
-
-    MouseTranslator(int x, int y){
+    MouseTranslator(int x, int y,Graphics g, ColorAttributes ca){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(x,y);
         this.setLayout(null);
 
-        label = new JLabel();
-        label.setBounds(300, 300, x, y);
-        label.setOpaque(true);
-        label.addMouseListener(this);
+        g.setColor(ca.filledColor);
 
-        this.add(label);
+        this.add(g);
         this.setVisible(true);
     }
 
