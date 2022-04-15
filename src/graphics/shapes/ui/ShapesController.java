@@ -6,11 +6,8 @@ import graphics.shapes.attributes.SelectionAttributes;
 import graphics.ui.Controller;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 public class ShapesController extends Controller {
     private Point lastMouseClick;
@@ -21,23 +18,12 @@ public class ShapesController extends Controller {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        SCollection coll = (SCollection) getView().getModel();
+        if (!e.isShiftDown())
+            unselectAll();
 
-        Point p = e.getPoint();
-        List<Shape> clicked = new ArrayList<>();
-
-        for (Iterator<Shape> it = coll.iterator(); it.hasNext();) {
-            Shape s = it.next();
-            ((SelectionAttributes) s.getAttributes(SelectionAttributes.ID)).unselect();
-            if (s.getBounds().contains(p)) {
-                clicked.add(s);
-            }
-        }
-
-        if (clicked.size() > 0) {
-            Shape s = clicked.get(0);
+        Shape s = getTarget();
+        if (s != null)
             ((SelectionAttributes) s.getAttributes(SelectionAttributes.ID)).toggleSelection();
-        }
 
         getView().repaint();
     }
@@ -64,8 +50,23 @@ public class ShapesController extends Controller {
         getView().repaint();
     }
 
-    @Override
-    public void keyPressed(KeyEvent evt) {
-        System.out.println(evt.getKeyCode());
+    private Shape getTarget() {
+        SCollection coll = (SCollection) getView().getModel();
+        for (Iterator<Shape> it = coll.iterator(); it.hasNext();) {
+            Shape s = it.next();
+            if (s.getBounds().contains(lastMouseClick)) {
+                return s;
+            }
+        }
+
+        return null;
+    }
+
+    private void unselectAll() {
+        SCollection coll = (SCollection) getView().getModel();
+        coll.iterator().forEachRemaining(shape -> {
+            SelectionAttributes sa = (SelectionAttributes) shape.getAttributes(SelectionAttributes.ID);
+            sa.unselect();
+        });
     }
 }
