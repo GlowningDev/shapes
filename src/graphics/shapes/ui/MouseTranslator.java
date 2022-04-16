@@ -6,9 +6,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class MouseTranslator extends JFrame implements MouseListener{
+public abstract class MouseTranslator extends JFrame implements MouseListener{
 
-    MouseTranslator(int x, int y,Graphics g, ColorAttributes ca){
+    /*MouseTranslator(int x, int y,Graphics g, ColorAttributes ca){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(x,y);
         this.setLayout(null);
@@ -53,4 +53,8 @@ public class MouseTranslator extends JFrame implements MouseListener{
         label.setBackground(Color.red);
     }
 
+    public boolean contains(int x,int y){
+        return oval.contains(x,y);
+    }
+    */
 }
