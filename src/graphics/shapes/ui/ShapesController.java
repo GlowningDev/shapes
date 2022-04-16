@@ -11,6 +11,7 @@ import java.util.Iterator;
 
 public class ShapesController extends Controller {
     private Point lastMouseClick;
+    private SelectionAttributes sa;
 
     public ShapesController(Object object) {
         super(object);
@@ -24,6 +25,18 @@ public class ShapesController extends Controller {
         Shape s = getTarget();
         if (s != null)
             ((SelectionAttributes) s.getAttributes(SelectionAttributes.ID)).toggleSelection();
+
+        getView().repaint();
+    }
+
+    public void mouseEntered(MouseEvent e) {
+        sa.enter();
+
+        getView().repaint();
+    }
+
+    public void mouseExited(MouseEvent e) {
+        sa.exit();
 
         getView().repaint();
     }

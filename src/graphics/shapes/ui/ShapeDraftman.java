@@ -26,10 +26,16 @@ public class ShapeDraftman implements ShapeVisitor {
         int x = (int) a.getX();
         int y = (int) a.getY();
 
-        if(r.getRect().x<x  && x<r.getRect().x+r.getRect().width && r.getRect().y<y && y<r.getRect().y+r.getRect().height){
+
+        if (sa.isEntered()){
+            g.setColor(Color.black);
+            g.drawRect(r.getBounds().x,r.getBounds().y,r.getBounds().width,r.getBounds().height);
+        }
+
+        /*if(r.getRect().x>x  && x<r.getRect().x+r.getRect().width  && r.getRect().y>y && y<r.getRect().y+r.getRect().height){
             g.setColor(Color.black);
             g.fillRect(r.getRect().x, r.getRect().y, r.getRect().width, r.getRect().height);
-        }
+        }*/
 
         else if (ca.filled) {
             g.setColor(ca.filledColor);
@@ -48,10 +54,7 @@ public class ShapeDraftman implements ShapeVisitor {
             g.fillRect(r.getBounds().x + r.getBounds().width, r.getBounds().y + r.getBounds().height, 5, 5);
         }
 
-        /*if (sa.isEntered()){
-            g.setColor(Color.black);
-            g.drawRect(r.getBounds().x,r.getBounds().y,r.getBounds().width,r.getBounds().height);
-        }*/
+
     }
 
     @Override
