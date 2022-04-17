@@ -30,13 +30,17 @@ public class ShapesController extends Controller {
     }
 
     public void mouseEntered(MouseEvent e) {
-        sa.enter();
+        if (sa!= null) {
+            sa.enter();
+        }
 
         getView().repaint();
     }
 
     public void mouseExited(MouseEvent e) {
-        sa.exit();
+        if (sa!= null){
+            sa.exit();
+        }
 
         getView().repaint();
     }
