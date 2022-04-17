@@ -30,7 +30,8 @@ public class ShapesController extends Controller {
     }
 
     public void mouseEntered(MouseEvent e) {
-        if (sa!= null) {
+        Shape s = onTarget(e);
+        if (sa!= null && s!=null) {
             sa.enter();
         }
 
@@ -38,7 +39,8 @@ public class ShapesController extends Controller {
     }
 
     public void mouseExited(MouseEvent e) {
-        if (sa!= null){
+        Shape s = onTarget(e);
+        if (sa!= null && s!= null){
             sa.exit();
         }
 
@@ -72,6 +74,19 @@ public class ShapesController extends Controller {
         for (Iterator<Shape> it = coll.iterator(); it.hasNext();) {
             Shape s = it.next();
             if (s.getBounds().contains(lastMouseClick)) {
+                return s;
+            }
+        }
+
+        return null;
+    }
+
+    private Shape onTarget(MouseEvent e){
+        Point loc = e.getPoint();
+        SCollection coll = (SCollection) getView().getModel();
+        for (Iterator<Shape> it = coll.iterator(); it.hasNext();) {
+            Shape s = it.next();
+            if (s.getBounds().contains(loc)) {
                 return s;
             }
         }

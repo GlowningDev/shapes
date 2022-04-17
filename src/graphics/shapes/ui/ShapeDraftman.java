@@ -22,9 +22,9 @@ public class ShapeDraftman implements ShapeVisitor {
         ColorAttributes ca = (ColorAttributes) r.getAttributes(ColorAttributes.ID);
         SelectionAttributes sa = (SelectionAttributes) r.getAttributes(SelectionAttributes.ID);
         //new MouseTranslator(r.getRect().x,r.getRect().y);
-        Point a = MouseInfo.getPointerInfo().getLocation();
+        /*Point a = MouseInfo.getPointerInfo().getLocation();
         int x = (int) a.getX();
-        int y = (int) a.getY();
+        int y = (int) a.getY();*/
 
 
         if (sa.isEntered()){
