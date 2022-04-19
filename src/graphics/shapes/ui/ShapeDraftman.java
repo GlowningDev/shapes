@@ -1,12 +1,12 @@
 package graphics.shapes.ui;
 
 import graphics.shapes.*;
+import graphics.shapes.Shape;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 import java.util.Iterator;
 
 public class ShapeDraftman implements ShapeVisitor {
@@ -22,13 +22,27 @@ public class ShapeDraftman implements ShapeVisitor {
         ColorAttributes ca = (ColorAttributes) r.getAttributes(ColorAttributes.ID);
         SelectionAttributes sa = (SelectionAttributes) r.getAttributes(SelectionAttributes.ID);
         //new MouseTranslator(r.getRect().x,r.getRect().y);
+        /*Point a = MouseInfo.getPointerInfo().getLocation();
+        int x = (int) a.getX();
+        int y = (int) a.getY();*/
 
-        if (ca.filled) {
+
+        if (sa.isEntered()){
+            g.setColor(Color.black);
+            g.drawRect(r.getBounds().x,r.getBounds().y,r.getBounds().width,r.getBounds().height);
+        }
+
+        /*if(r.getRect().x>x  && x<r.getRect().x+r.getRect().width  && r.getRect().y>y && y<r.getRect().y+r.getRect().height){
+            g.setColor(Color.black);
+            g.fillRect(r.getRect().x, r.getRect().y, r.getRect().width, r.getRect().height);
+        }*/
+
+        else if (ca.filled) {
             g.setColor(ca.filledColor);
             g.fillRect(r.getRect().x, r.getRect().y, r.getRect().width, r.getRect().height);
         }
 
-        if (ca.stroked) {
+        else if (ca.stroked) {
             g.setColor(ca.filledColor);
             g.drawRect(r.getRect().x, r.getRect().y, r.getRect().width, r.getRect().height);
         }
@@ -39,6 +53,8 @@ public class ShapeDraftman implements ShapeVisitor {
             g.fillRect(r.getBounds().x, r.getBounds().y, 5, 5);
             g.fillRect(r.getBounds().x + r.getBounds().width, r.getBounds().y + r.getBounds().height, 5, 5);
         }
+
+
     }
 
     @Override

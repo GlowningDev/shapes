@@ -11,6 +11,7 @@ import java.util.Iterator;
 
 public class ShapesController extends Controller {
     private Point lastMouseClick;
+    private SelectionAttributes sa;
 
     public ShapesController(Object object) {
         super(object);
@@ -24,6 +25,24 @@ public class ShapesController extends Controller {
         Shape s = getTarget();
         if (s != null)
             ((SelectionAttributes) s.getAttributes(SelectionAttributes.ID)).toggleSelection();
+
+        getView().repaint();
+    }
+
+    public void mouseEntered(MouseEvent e) {
+        Shape s = onTarget(e);
+        if (sa!= null && s!=null) {
+            sa.enter();
+        }
+
+        getView().repaint();
+    }
+
+    public void mouseExited(MouseEvent e) {
+        Shape s = onTarget(e);
+        if (sa!= null && s!= null){
+            sa.exit();
+        }
 
         getView().repaint();
     }
@@ -55,6 +74,19 @@ public class ShapesController extends Controller {
         for (Iterator<Shape> it = coll.iterator(); it.hasNext();) {
             Shape s = it.next();
             if (s.getBounds().contains(lastMouseClick)) {
+                return s;
+            }
+        }
+
+        return null;
+    }
+
+    private Shape onTarget(MouseEvent e){
+        Point loc = e.getPoint();
+        SCollection coll = (SCollection) getView().getModel();
+        for (Iterator<Shape> it = coll.iterator(); it.hasNext();) {
+            Shape s = it.next();
+            if (s.getBounds().contains(loc)) {
                 return s;
             }
         }
