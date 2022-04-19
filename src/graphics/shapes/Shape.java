@@ -32,4 +32,9 @@ public abstract class Shape {
     public abstract Rectangle getBounds();
     public abstract void accept(ShapeVisitor sv);
 
+    public void setSize(Point p) {
+        // TODO: In each Shape, no integration yet so no abstract
+        // Overwritten in SRectangle only
+    }
+
 }

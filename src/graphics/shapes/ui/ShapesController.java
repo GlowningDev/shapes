@@ -1,6 +1,8 @@
 package graphics.shapes.ui;
 
+import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
+import graphics.shapes.SRectangle;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.ui.Controller;
@@ -12,6 +14,7 @@ import java.util.Iterator;
 public class ShapesController extends Controller {
     private Point lastMouseClick;
     private SelectionAttributes sa;
+    private Shape drewShape;
 
     public ShapesController(Object object) {
         super(object);
@@ -22,7 +25,7 @@ public class ShapesController extends Controller {
         if (!e.isShiftDown())
             unselectAll();
 
-        Shape s = getTarget();
+        Shape s = onTarget(e);
         if (s != null)
             ((SelectionAttributes) s.getAttributes(SelectionAttributes.ID)).toggleSelection();
 
@@ -50,6 +53,13 @@ public class ShapesController extends Controller {
     @Override
     public void mousePressed(MouseEvent e) {
         this.lastMouseClick = e.getPoint();
+
+        if (e.isControlDown()) {
+            //drewShape = new SRectangle(e.getPoint(), 1, 1);
+            drewShape = new SCircle(e.getPoint(), 1);
+            drewShape.addAttributes(new SelectionAttributes());
+            ((SCollection) getView().getModel()).add(drewShape);
+        }
     }
 
     @Override
@@ -65,20 +75,16 @@ public class ShapesController extends Controller {
                 s.translate(loc.x - lastMouseClick.x, loc.y - lastMouseClick.y);
         }
 
+        if (e.isControlDown() && drewShape != null)
+            drewShape.setSize(loc);
+
         lastMouseClick = loc;
         getView().repaint();
     }
 
-    private Shape getTarget() {
-        SCollection coll = (SCollection) getView().getModel();
-        for (Iterator<Shape> it = coll.iterator(); it.hasNext();) {
-            Shape s = it.next();
-            if (s.getBounds().contains(lastMouseClick)) {
-                return s;
-            }
-        }
-
-        return null;
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        drewShape = null;
     }
 
     private Shape onTarget(MouseEvent e){

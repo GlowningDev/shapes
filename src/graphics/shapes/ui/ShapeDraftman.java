@@ -26,6 +26,9 @@ public class ShapeDraftman implements ShapeVisitor {
         int x = (int) a.getX();
         int y = (int) a.getY();*/
 
+        if (ca == null)
+            ca = DEFAULTCOLORATTRIBUES;
+
 
         if (sa.isEntered()){
             g.setColor(Color.black);
@@ -62,14 +65,17 @@ public class ShapeDraftman implements ShapeVisitor {
         ColorAttributes ca = (ColorAttributes) c.getAttributes(ColorAttributes.ID);
         SelectionAttributes sa = (SelectionAttributes) c.getAttributes(SelectionAttributes.ID);
 
+        if (ca == null)
+            ca = DEFAULTCOLORATTRIBUES;
+
         if (ca.filled) {
             g.setColor(ca.filledColor);
-            g.fillOval(c.getBounds().x, c.getBounds().y, c.getBounds().width, c.getBounds().height);
+            g.fillOval(c.getLoc().x, c.getLoc().y, c.getBounds().width, c.getBounds().height);
         }
 
         if (ca.stroked) {
             g.setColor(ca.filledColor);
-            g.drawOval(c.getBounds().x, c.getBounds().y, c.getBounds().width, c.getBounds().height);
+            g.drawOval(c.getLoc().x, c.getLoc().y, c.getBounds().width, c.getBounds().height);
         }
 
         if (sa.isSelected()) {
@@ -85,6 +91,9 @@ public class ShapeDraftman implements ShapeVisitor {
         ColorAttributes ca = (ColorAttributes) t.getAttributes(ColorAttributes.ID);
         FontAttributes fa = (FontAttributes) t.getAttributes(FontAttributes.ID);
         SelectionAttributes sa = (SelectionAttributes) t.getAttributes(SelectionAttributes.ID);
+
+        if (ca == null)
+            ca = DEFAULTCOLORATTRIBUES;
 
         if (ca.filled) {
             g.setColor(ca.filledColor);
