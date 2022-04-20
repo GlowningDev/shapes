@@ -31,8 +31,9 @@ public class ShapesController extends Controller {
 
     public void mouseEntered(MouseEvent e) {
         Shape s = onTarget(e);
-        if (sa!= null && s!=null) {
-            sa.enter();
+        if (s != null) {
+            ((SelectionAttributes) s.getAttributes(SelectionAttributes.ID)).enter();
+            System.out.println("Entered");
         }
 
         getView().repaint();
@@ -40,8 +41,9 @@ public class ShapesController extends Controller {
 
     public void mouseExited(MouseEvent e) {
         Shape s = onTarget(e);
-        if (sa!= null && s!= null){
-            sa.exit();
+        if (s != null) {
+            ((SelectionAttributes) s.getAttributes(SelectionAttributes.ID)).exit();
+            System.out.println("Exited");
         }
 
         getView().repaint();
@@ -57,7 +59,7 @@ public class ShapesController extends Controller {
         Point loc = e.getPoint();
 
         SCollection coll = (SCollection) getView().getModel();
-        for (Iterator<Shape> it = coll.iterator(); it.hasNext();) {
+        for (Iterator<Shape> it = coll.iterator(); it.hasNext(); ) {
             Shape s = it.next();
             SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
 
@@ -71,7 +73,7 @@ public class ShapesController extends Controller {
 
     private Shape getTarget() {
         SCollection coll = (SCollection) getView().getModel();
-        for (Iterator<Shape> it = coll.iterator(); it.hasNext();) {
+        for (Iterator<Shape> it = coll.iterator(); it.hasNext(); ) {
             Shape s = it.next();
             if (s.getBounds().contains(lastMouseClick)) {
                 return s;
@@ -81,16 +83,16 @@ public class ShapesController extends Controller {
         return null;
     }
 
-    private Shape onTarget(MouseEvent e){
+    private Shape onTarget(MouseEvent e) {
         Point loc = e.getPoint();
-        SCollection coll = (SCollection) getView().getModel();
-        for (Iterator<Shape> it = coll.iterator(); it.hasNext();) {
-            Shape s = it.next();
-            if (s.getBounds().contains(loc)) {
-                return s;
-            }
+        Shape coll = (Shape) getView().getModel();
+        //Shape s = (Shape) coll;
+        if (coll.getBounds().contains(loc)) {
+            System.out.println("Dessus");
+            return coll;
+        } else { //ne marche que lorsque la souris rentre ou sort de la fênetre de graphics
+            System.out.println("Pas dessus");
         }
-
         return null;
     }
 
