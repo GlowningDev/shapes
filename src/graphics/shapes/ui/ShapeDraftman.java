@@ -109,4 +109,9 @@ public class ShapeDraftman implements ShapeVisitor {
         }
     }
 
+    @Override
+    public void visitPolygon(SPolygon r) {
+
+    }
+
 }

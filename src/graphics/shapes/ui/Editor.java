@@ -1,9 +1,6 @@
 package graphics.shapes.ui;
 
-import graphics.shapes.SCircle;
-import graphics.shapes.SCollection;
-import graphics.shapes.SRectangle;
-import graphics.shapes.SText;
+import graphics.shapes.*;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
@@ -50,6 +47,12 @@ public class Editor extends JFrame
 		c.addAttributes(new ColorAttributes(false,true,Color.BLUE,Color.BLUE));
 		c.addAttributes(new SelectionAttributes());
 		this.model.add(c);
+
+
+		//SPolygon p = new SPolygon(new int[]{100, 200, 300}, new int[]{100, 200, 300},1);
+		//c.addAttributes(new ColorAttributes(false,true,Color.PINK,Color.PINK));
+		//c.addAttributes(new SelectionAttributes());
+		//this.model.add(p);
 
 		SText t= new SText(new Point(100,100),"hello");
 		t.addAttributes(new ColorAttributes(true,true,Color.YELLOW,Color.BLUE));
