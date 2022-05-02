@@ -52,10 +52,10 @@ public class Editor extends JFrame
 		this.model.add(c);
 
 
-		//SPolygon p = new SPolygon(new int[]{100, 200, 300}, new int[]{100, 200, 300},1);
-		//c.addAttributes(new ColorAttributes(false,true,Color.PINK,Color.PINK));
-		//c.addAttributes(new SelectionAttributes());
-		//this.model.add(p);
+		SPolygon p = new SPolygon(new int[]{25, 50, 50,25}, new int[]{10, 30, 10,30},4);
+		c.addAttributes(new ColorAttributes(false,true,Color.PINK,Color.PINK));
+		c.addAttributes(new SelectionAttributes());
+		this.model.add(p);
 
 		SText t= new SText(new Point(100,100),"hello");
 		t.addAttributes(new ColorAttributes(true,true,Color.YELLOW,Color.BLUE));

@@ -10,14 +10,14 @@ public class SPolygon extends Shape {
     private int[] yPoints;
     private int nbPoints;
 
-    Point point=new Point (xPoints[0], yPoints[0]);
+    Point point;
 
 
     public  SPolygon(int[] xPoints, int[] yPoints, int nbPoints){
         this.xPoints=xPoints;
         this.yPoints=yPoints;
         this.nbPoints=nbPoints;
-        this.point=point;
+        this.point=new Point (xPoints[0], yPoints[0]);
     }
 
 
@@ -32,11 +32,36 @@ public class SPolygon extends Shape {
 
     @Override
     public Rectangle getBounds() {
-        return new Rectangle(point.x, point.y, point.x * 2, point.y * 2); ///x=min(xpoints);y qui va avec le x;l=max(xpoints)-min(xpoints); h=max(ypoints)-min(ypoints)
+        int minX = Integer.MAX_VALUE; //Faire petite boucle pour calculer le min Math.min) et Math.max pour x et y
+        return new Rectangle(point.x, point.y, point.x * 2, point.y * 2); ///x=min(xpoints)(Math.min);y qui va avec le x;l=max(xpoints)-min(xpoints); h=max(ypoints)-min(ypoints)
+    }
+
+    public int[] getxPoints() {
+        return xPoints;
+    }
+
+    public void setxPoints(int[] xPoints) {
+        this.xPoints = xPoints;
+    }
+
+    public int[] getyPoints() {
+        return yPoints;
+    }
+
+    public void setyPoints(int[] yPoints) {
+        this.yPoints = yPoints;
+    }
+
+    public int getNbPoints() {
+        return nbPoints;
+    }
+
+    public void setNbPoints(int nbPoints) {
+        this.nbPoints = nbPoints;
     }
 
     @Override
-    public void accept(ShapeVisitor sv) { //Faire le visitPolygon dans le Draftman
+    public void accept(ShapeVisitor sv) {
         sv.visitPolygon(this);
 
     }
