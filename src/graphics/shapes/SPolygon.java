@@ -32,10 +32,38 @@ public class SPolygon extends Shape {
 
     @Override
     public Rectangle getBounds() {
-        int minX = Integer.MAX_VALUE; //Faire petite boucle pour calculer le min Math.min) et Math.max pour x et y
-        return new Rectangle(point.x, point.y, point.x * 2, point.y * 2); ///x=min(xpoints)(Math.min);y qui va avec le x;l=max(xpoints)-min(xpoints); h=max(ypoints)-min(ypoints)
-    }
+        int minX = Integer.MAX_VALUE;
+        int maxX = Integer.MIN_VALUE;
+        int minY = Integer.MAX_VALUE;
+        int maxY = Integer.MIN_VALUE;
+        int comp = 0;
+        int comptmin = 0;
+        for (int valuex : xPoints) {
+            if (valuex < minX) {
+                minX = valuex;
+                comptmin = comp;
 
+            }
+            if (valuex > maxX) {
+                maxX = valuex;
+            }
+            comp = comp + 1;
+        }
+        System.out.println(minX);
+        System.out.println(maxX);
+        System.out.println(comptmin);
+        for (int valuey : yPoints) {
+            if (valuey < minY) {
+                minY = valuey;
+            }
+            if (valuey > maxY) {
+                maxY = valuey;
+            }
+        }
+        System.out.println(minY);
+        System.out.println(maxY);
+        return new Rectangle(minX, comptmin, maxX - minX, maxY - minY); ///A faire valider par Enzo
+    }
     public int[] getxPoints() {
         return xPoints;
     }

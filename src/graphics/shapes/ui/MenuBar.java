@@ -87,7 +87,7 @@ public class MenuBar extends JFrame {
 
         return menuBar;
     }
-
+//barre d'outil //JFileChooser (sauvegarder)
     public void menuListener(ActionEvent event){
         JOptionPane.showMessageDialog(this, "Entrer un message");
     }
