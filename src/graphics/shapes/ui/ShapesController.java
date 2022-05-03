@@ -4,7 +4,6 @@ import graphics.shapes.SCollection;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
-import graphics.shapes.attributes.EntranceAttributes;
 import graphics.ui.Controller;
 
 import java.awt.*;
@@ -14,7 +13,6 @@ import java.util.Iterator;
 public class ShapesController extends Controller {
     private Point lastMouseClick;
     private SelectionAttributes sa;
-    private EntranceAttributes ea;
 
     public ShapesController(Object object) {
         super(object);
@@ -30,24 +28,6 @@ public class ShapesController extends Controller {
             ((SelectionAttributes) s.getAttributes(SelectionAttributes.ID)).toggleSelection();
 
     }
-
-    /*public void mouseEntered(MouseEvent e) {
-        Shape s = onTarget(e);
-        if (s != null) {
-            ((EntranceAttributes) s.getAttributes(EntranceAttributes.ID)).enter();
-            System.out.println("Entered");
-        }
-    }
-
-    public void mouseExited(MouseEvent e) {
-        Shape s = onTarget(e);
-        if (s != null) {
-            ((EntranceAttributes) s.getAttributes(EntranceAttributes.ID)).exit();
-            System.out.println("Exited");
-        }
-
-        getView().repaint();
-    }*/
 
     @Override
     public void mouseMoved(MouseEvent e){

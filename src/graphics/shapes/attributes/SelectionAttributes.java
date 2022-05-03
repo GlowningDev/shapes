@@ -21,22 +21,6 @@ public class SelectionAttributes extends Attributes {
         this.selected = !selected;
     }
 
-    /*public boolean isEntered()
-    {
-        return entered;
-    }
-
-    public void enter()
-    {
-        this.entered=true;
-        System.out.println("enter() utilisé");
-    }
-
-    public void exit()
-    {
-        this.entered=false;
-    }*/
-
     @Override
     public String getId() {
         return ID;
