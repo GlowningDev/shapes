@@ -24,9 +24,28 @@ public class ShapesController extends Controller {
             unselectAll();
 
         Shape s = getTarget();
-        if (s != null)
+        if (s != null) {
             ((SelectionAttributes) s.getAttributes(SelectionAttributes.ID)).toggleSelection();
-
+            ColorAttributes ca = (ColorAttributes) s.getAttributes(ColorAttributes.ID);
+            if (ca.filledColor !=null && ca.bufferColor !=null) {
+                if (ca.filledColor == Color.black)
+                    ca.filledColor = Color.red;
+                else if (ca.filledColor == Color.red)
+                    ca.filledColor = Color.orange;
+                else if (ca.filledColor == Color.orange)
+                    ca.filledColor = Color.yellow;
+                else if (ca.filledColor == Color.yellow)
+                    ca.filledColor = Color.green;
+                else if (ca.filledColor == Color.green)
+                    ca.filledColor = Color.blue;
+                else if (ca.filledColor == Color.blue)
+                    ca.filledColor = Color.pink;
+                else if (ca.filledColor == Color.pink)
+                    ca.filledColor = ca.bufferColor;
+                else if (ca.filledColor == ca.bufferColor)
+                    ca.filledColor = Color.black;
+            }
+        }
     }
 
     @Override
@@ -35,14 +54,14 @@ public class ShapesController extends Controller {
         coll.iterator().forEachRemaining(shape -> {
             ColorAttributes ca = (ColorAttributes) shape.getAttributes(ColorAttributes.ID);
             if (ca!=null){
-                ca.filledColor=ca.bufferColor;
+                ca.strokedColor=ca.bufferColor;
             }
         });
         Shape s = newTarget(e.getX(),e.getY());
         if (s!=null){
             ColorAttributes ca= (ColorAttributes) s.getAttributes(ColorAttributes.ID);
             if (ca != null){
-                ca.filledColor=Color.black;
+                ca.strokedColor=Color.black;
             }
         }
         getView().repaint();
