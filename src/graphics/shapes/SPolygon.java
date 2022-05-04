@@ -36,22 +36,16 @@ public class SPolygon extends Shape {
         int maxX = Integer.MIN_VALUE;
         int minY = Integer.MAX_VALUE;
         int maxY = Integer.MIN_VALUE;
-        int comp = 0;
         int comptmin = 0;
-        for (int valuex : xPoints) {
-            if (valuex < minX) {
-                minX = valuex;
-                comptmin = comp;
-
+        for (int i = 0; i < xPoints.length; i++) {
+            if (xPoints[i] < minX) {
+                minX = xPoints[i];
+                comptmin = i;
             }
-            if (valuex > maxX) {
-                maxX = valuex;
+            if (xPoints[i] > maxX) {
+                maxX = xPoints[i];
             }
-            comp = comp + 1;
         }
-        System.out.println(minX);
-        System.out.println(maxX);
-        System.out.println(comptmin);
         for (int valuey : yPoints) {
             if (valuey < minY) {
                 minY = valuey;
@@ -62,7 +56,7 @@ public class SPolygon extends Shape {
         }
         System.out.println(minY);
         System.out.println(maxY);
-        return new Rectangle(minX, comptmin, maxX - minX, maxY - minY); ///A faire valider par Enzo
+        return new Rectangle(minX, yPoints[comptmin], maxX - minX, maxY - minY);
     }
     public int[] getxPoints() {
         return xPoints;
