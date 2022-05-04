@@ -29,34 +29,35 @@ public class SPolygon extends Shape {
 
     @Override
     public void translate(int x, int y) {point.translate(x,y);}
+    public int[] mini(int[] tab) {
+        int min = Integer.MAX_VALUE;
+        int [] minimum= new int[2];
+        for (int i = 0; i < tab.length; i++) {
+            if (tab[i] < min) {
+                minimum[0] = tab[i];
+                minimum[1] = i;
+            }
+        }
+        return minimum;
+    }
+
+    public int maxi(int[] tab){
+            int max = Integer.MIN_VALUE;
+            for (int i = 0; i < tab.length; i++) {
+                if (tab[i] > max) {
+                    max = tab[i];
+                }
+            }
+            return max;
+        }
 
     @Override
     public Rectangle getBounds() {
-        int minX = Integer.MAX_VALUE;
-        int maxX = Integer.MIN_VALUE;
-        int minY = Integer.MAX_VALUE;
-        int maxY = Integer.MIN_VALUE;
-        int comptmin = 0;
-        for (int i = 0; i < xPoints.length; i++) {
-            if (xPoints[i] < minX) {
-                minX = xPoints[i];
-                comptmin = i;
-            }
-            if (xPoints[i] > maxX) {
-                maxX = xPoints[i];
-            }
-        }
-        for (int valuey : yPoints) {
-            if (valuey < minY) {
-                minY = valuey;
-            }
-            if (valuey > maxY) {
-                maxY = valuey;
-            }
-        }
-        System.out.println(minY);
-        System.out.println(maxY);
-        return new Rectangle(minX, yPoints[comptmin], maxX - minX, maxY - minY);
+        int minX= mini(xPoints)[0];
+        int maxX= maxi(xPoints);
+        int minY= mini(xPoints)[1];
+        int maxY= maxi(yPoints);
+        return new Rectangle(minX, minY, maxX - minX, maxY- minY);
     }
     public int[] getxPoints() {
         return xPoints;
