@@ -27,23 +27,49 @@ public class ShapesController extends Controller {
         if (s != null) {
             ((SelectionAttributes) s.getAttributes(SelectionAttributes.ID)).toggleSelection();
             ColorAttributes ca = (ColorAttributes) s.getAttributes(ColorAttributes.ID);
-            if (ca.filledColor !=null && ca.bufferColor !=null) {
-                if (ca.filledColor == Color.black)
-                    ca.filledColor = Color.red;
-                else if (ca.filledColor == Color.red)
+            if (ca !=null) {
+                if (ca.filledColor == Color.red){
                     ca.filledColor = Color.orange;
-                else if (ca.filledColor == Color.orange)
+                    ca.bufferColor = Color.orange;
+                    System.out.println("Je deviens orange");
+                    getView().repaint();
+                }
+                else if (ca.filledColor == Color.orange){
                     ca.filledColor = Color.yellow;
-                else if (ca.filledColor == Color.yellow)
+                    ca.bufferColor = Color.yellow;
+                    System.out.println("Je deviens jaune");
+                    getView().repaint();
+                }
+                else if (ca.filledColor == Color.yellow){
                     ca.filledColor = Color.green;
-                else if (ca.filledColor == Color.green)
+                    ca.bufferColor = Color.green;
+                    System.out.println("Je deviens vert");
+                    getView().repaint();
+                }
+                else if (ca.filledColor == Color.green){
                     ca.filledColor = Color.blue;
-                else if (ca.filledColor == Color.blue)
+                    ca.bufferColor = Color.blue;
+                    System.out.println("Je deviens bleu");
+                    getView().repaint();
+                }
+                else if (ca.filledColor == Color.blue){
                     ca.filledColor = Color.pink;
-                else if (ca.filledColor == Color.pink)
-                    ca.filledColor = ca.bufferColor;
-                else if (ca.filledColor == ca.bufferColor)
-                    ca.filledColor = Color.black;
+                    ca.bufferColor = Color.pink;
+                    System.out.println("Je deviens rose");
+                    getView().repaint();
+                }
+                else if (ca.filledColor == Color.pink){
+                    ca.filledColor = Color.red;
+                    ca.bufferColor = Color.red;
+                    System.out.println("Je deviens rouge");
+                    getView().repaint();
+                }
+                else if (ca.filledColor == Color.black){
+                    ca.filledColor = Color.red;
+                    ca.bufferColor = Color.red;
+                    System.out.println("Je deviens rouge");
+                    getView().repaint();
+                }
             }
         }
     }
@@ -54,14 +80,14 @@ public class ShapesController extends Controller {
         coll.iterator().forEachRemaining(shape -> {
             ColorAttributes ca = (ColorAttributes) shape.getAttributes(ColorAttributes.ID);
             if (ca!=null){
-                ca.strokedColor=ca.bufferColor;
+                ca.filledColor=ca.bufferColor;
             }
         });
         Shape s = newTarget(e.getX(),e.getY());
         if (s!=null){
             ColorAttributes ca= (ColorAttributes) s.getAttributes(ColorAttributes.ID);
             if (ca != null){
-                ca.strokedColor=Color.black;
+                ca.filledColor=Color.black;
             }
         }
         getView().repaint();
