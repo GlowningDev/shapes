@@ -139,19 +139,6 @@ public class ShapesController extends Controller {
         return null;
     }
 
-    private Shape onTarget(MouseEvent e) {
-        Point loc = e.getPoint();
-        Shape coll = (Shape) getView().getModel();
-        //Shape s = (Shape) coll;
-        if (coll.getBounds().contains(loc)) {
-            System.out.println("Dessus");
-            return coll;
-        } else { //ne marche que lorsque la souris rentre ou sort de la fênetre de graphics
-            System.out.println("Pas dessus");
-        }
-        return null;
-    }
-
     private void unselectAll() {
         SCollection coll = (SCollection) getView().getModel();
         coll.iterator().forEachRemaining(shape -> {
