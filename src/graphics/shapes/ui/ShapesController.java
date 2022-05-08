@@ -1,6 +1,7 @@
 package graphics.shapes.ui;
 
 import graphics.shapes.SCollection;
+import graphics.shapes.SRectangle;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
@@ -85,9 +86,20 @@ public class ShapesController extends Controller {
         });
         Shape s = newTarget(e.getX(),e.getY());
         if (s!=null){
-            ColorAttributes ca= (ColorAttributes) s.getAttributes(ColorAttributes.ID);
-            if (ca != null){
-                ca.filledColor=Color.black;
+            if (s instanceof SCollection){
+                for (Iterator<Shape> it = coll.iterator(); it.hasNext(); ) {
+                    Shape s2 = it.next();
+                    ColorAttributes ca= (ColorAttributes) s2.getAttributes(ColorAttributes.ID);
+                    if (ca != null){
+                        ca.filledColor=Color.black;
+                    }
+                }
+            }
+            else{
+                ColorAttributes ca= (ColorAttributes) s.getAttributes(ColorAttributes.ID);
+                if (ca != null){
+                    ca.filledColor=Color.black;
+                }
             }
         }
         getView().repaint();
