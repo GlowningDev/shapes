@@ -1,6 +1,8 @@
 package graphics.shapes.ui;
 
+import graphics.shapes.SCollection;
 import graphics.shapes.SRectangle;
+import graphics.shapes.Shape;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
@@ -8,12 +10,15 @@ import javax.swing.*;
 import javax.tools.Tool;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.Iterator;
 
 public class ToolBar extends JFrame {
+    Editor editor;
 
-
-    public ToolBar(){
+    public ToolBar(Editor editor){
+        this.editor = editor;
         this.setSize(600,300);
         this.setLocationRelativeTo(null); //Centre par rapport au conteneur en parametre
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE); //Detruire l'objet
@@ -29,18 +34,17 @@ public class ToolBar extends JFrame {
         JButton buttonNew=new JButton(new ImageIcon("icons/new.png"));
         toolBar.add(buttonNew);
 
-        JButton buttonCircle=new JButton(new ImageIcon("icons/circle.png"));
-        buttonCircle.setToolTipText("Forme: Cercle");
-        toolBar.add(buttonCircle);
-
         JButton buttonSquare=new JButton(new ImageIcon("icons/square.png"));
         buttonSquare.setToolTipText("Forme: Square");
-        toolBar.add(buttonCircle);
+        toolBar.add(buttonSquare);
 
         JButton buttonRectangle=new JButton(new ImageIcon("icons/rectangle.png"));
         buttonRectangle.setToolTipText("Forme: Rectangle");
-
         toolBar.add(buttonRectangle);
+
+        JButton buttonCircle=new JButton(new ImageIcon("icons/circle.png"));
+        buttonCircle.setToolTipText("Forme: Cercle");
+        toolBar.add(buttonCircle);
 
         JButton buttonTriangle=new JButton(new ImageIcon("icons/triangle.png"));
         buttonTriangle.setToolTipText("Forme: Triangle");
@@ -52,9 +56,24 @@ public class ToolBar extends JFrame {
 
         toolBar.addSeparator();
 
+        JButton buttonText=new JButton(new ImageIcon("icons/text.png"));
+        buttonCircle.setToolTipText("Ecrire le texte");
+        toolBar.add(buttonText);
+
+        JButton buttonDraw=new JButton(new ImageIcon("icons/draw.png"));
+        buttonCircle.setToolTipText("Dessin libre");
+        toolBar.add(buttonDraw);
+
         JButton buttonErase=new JButton(new ImageIcon("icons/gomme.png"));
         buttonErase.setToolTipText("Gomme");
         toolBar.add(buttonErase);
+        buttonErase.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                        SCollection coll = editor.sview.getModel();
+                       coll.remove(coll);
+                    }
+        });
 
         toolBar.addSeparator();
 

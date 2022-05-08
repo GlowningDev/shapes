@@ -19,7 +19,7 @@ public class Editor extends JFrame
 	{
 		super("Shapes Editor");
 		MenuBar window = new MenuBar(this);
-		ToolBar windows= new ToolBar();
+		ToolBar windows= new ToolBar(this);
 		windows.setVisible(true);
 		this.addWindowListener(new java.awt.event.WindowAdapter()
 		{
