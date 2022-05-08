@@ -1,10 +1,12 @@
 package graphics.shapes.ui;
 
 import graphics.shapes.SCollection;
+import graphics.shapes.SText;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.ui.Controller;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -31,6 +33,13 @@ public class ShapesController extends Controller {
             ((SelectionAttributes) s.getAttributes(SelectionAttributes.ID)).unselect();
             if (s.getBounds().contains(p)) {
                 clicked.add(s);
+            }
+
+            if (e.getClickCount() == 2) {
+                if (s instanceof SText text) {
+                    String str = (String) JOptionPane.showInputDialog(getView(), "Nouveau texte :", "Modification du texte", JOptionPane.PLAIN_MESSAGE, null, null, text.getText());
+                    text.setText(str != null ? str : text.getText());
+                }
             }
         }
 
