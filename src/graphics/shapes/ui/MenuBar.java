@@ -74,15 +74,7 @@ public class MenuBar extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 SCollection coll = editor.sview.getModel();
-                for (Iterator<Shape> it = coll.iterator(); it.hasNext();) {
-                    Shape s = it.next();
-                    SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
-
-                    if (sa.isSelected()) {
-                        copiedShape = s;
-                        return;
-                    }
-                }
+                copy(coll);
             }
         });
 
@@ -104,6 +96,21 @@ public class MenuBar extends JFrame {
 
         return menuBar;
     }
+
+    private Shape copy(SCollection coll) {
+        for (Iterator<Shape> it = coll.iterator(); it.hasNext();) {
+            Shape s = it.next();
+            SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
+
+            if (sa.isSelected()) {
+                copiedShape = s;
+                return s;
+            }
+        }
+
+        return null;
+    }
+
 //barre d'outil //JFileChooser (sauvegarder)
     /*public void menuListener(ActionEvent event){
         JOptionPane.showMessageDialog(this, "Entrer un message");
