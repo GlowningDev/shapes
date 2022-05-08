@@ -2,6 +2,7 @@ package graphics.shapes.ui;
 
 import graphics.shapes.SCollection;
 import graphics.shapes.Shape;
+import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.ui.Controller;
 
@@ -23,30 +24,75 @@ public class ShapesController extends Controller {
             unselectAll();
 
         Shape s = getTarget();
-        if (s != null)
+        if (s != null) {
             ((SelectionAttributes) s.getAttributes(SelectionAttributes.ID)).toggleSelection();
-
-        getView().repaint();
-    }
-
-    public void mouseEntered(MouseEvent e) {
-        Shape s = onTarget(e);
-        if (sa!= null && s!=null) {
-            sa.enter();
+            ColorAttributes ca = (ColorAttributes) s.getAttributes(ColorAttributes.ID);
+            if (ca !=null) {
+                if (ca.filledColor == Color.red){
+                    ca.filledColor = Color.orange;
+                    ca.bufferColor = Color.orange;
+                    System.out.println("Je deviens orange");
+                    getView().repaint();
+                }
+                else if (ca.filledColor == Color.orange){
+                    ca.filledColor = Color.yellow;
+                    ca.bufferColor = Color.yellow;
+                    System.out.println("Je deviens jaune");
+                    getView().repaint();
+                }
+                else if (ca.filledColor == Color.yellow){
+                    ca.filledColor = Color.green;
+                    ca.bufferColor = Color.green;
+                    System.out.println("Je deviens vert");
+                    getView().repaint();
+                }
+                else if (ca.filledColor == Color.green){
+                    ca.filledColor = Color.blue;
+                    ca.bufferColor = Color.blue;
+                    System.out.println("Je deviens bleu");
+                    getView().repaint();
+                }
+                else if (ca.filledColor == Color.blue){
+                    ca.filledColor = Color.pink;
+                    ca.bufferColor = Color.pink;
+                    System.out.println("Je deviens rose");
+                    getView().repaint();
+                }
+                else if (ca.filledColor == Color.pink){
+                    ca.filledColor = Color.red;
+                    ca.bufferColor = Color.red;
+                    System.out.println("Je deviens rouge");
+                    getView().repaint();
+                }
+                else if (ca.filledColor == Color.black){
+                    ca.filledColor = Color.red;
+                    ca.bufferColor = Color.red;
+                    System.out.println("Je deviens rouge");
+                    getView().repaint();
+                }
+            }
         }
-
-        getView().repaint();
     }
 
-    public void mouseExited(MouseEvent e) {
-        Shape s = onTarget(e);
-        if (sa!= null && s!= null){
-            sa.exit();
+    @Override
+    public void mouseMoved(MouseEvent e){
+        SCollection coll = (SCollection) getView().getModel();
+        coll.iterator().forEachRemaining(shape -> {
+            ColorAttributes ca = (ColorAttributes) shape.getAttributes(ColorAttributes.ID);
+            if (ca!=null){
+                ca.filledColor=ca.bufferColor;
+            }
+        });
+        Shape s = newTarget(e.getX(),e.getY());
+        if (s!=null){
+            ColorAttributes ca= (ColorAttributes) s.getAttributes(ColorAttributes.ID);
+            if (ca != null){
+                ca.filledColor=Color.black;
+            }
         }
-
         getView().repaint();
-    }
 
+    }
     @Override
     public void mousePressed(MouseEvent e) {
         this.lastMouseClick = e.getPoint();
@@ -57,7 +103,7 @@ public class ShapesController extends Controller {
         Point loc = e.getPoint();
 
         SCollection coll = (SCollection) getView().getModel();
-        for (Iterator<Shape> it = coll.iterator(); it.hasNext();) {
+        for (Iterator<Shape> it = coll.iterator(); it.hasNext(); ) {
             Shape s = it.next();
             SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
 
@@ -71,7 +117,7 @@ public class ShapesController extends Controller {
 
     private Shape getTarget() {
         SCollection coll = (SCollection) getView().getModel();
-        for (Iterator<Shape> it = coll.iterator(); it.hasNext();) {
+        for (Iterator<Shape> it = coll.iterator(); it.hasNext(); ) {
             Shape s = it.next();
             if (s.getBounds().contains(lastMouseClick)) {
                 return s;
@@ -81,16 +127,28 @@ public class ShapesController extends Controller {
         return null;
     }
 
-    private Shape onTarget(MouseEvent e){
-        Point loc = e.getPoint();
+    private Shape newTarget(int x, int y) {
         SCollection coll = (SCollection) getView().getModel();
-        for (Iterator<Shape> it = coll.iterator(); it.hasNext();) {
+        for (Iterator<Shape> it = coll.iterator(); it.hasNext(); ) {
             Shape s = it.next();
-            if (s.getBounds().contains(loc)) {
+            if (s.getBounds().contains(new Point(x,y))) {
                 return s;
             }
         }
 
+        return null;
+    }
+
+    private Shape onTarget(MouseEvent e) {
+        Point loc = e.getPoint();
+        Shape coll = (Shape) getView().getModel();
+        //Shape s = (Shape) coll;
+        if (coll.getBounds().contains(loc)) {
+            System.out.println("Dessus");
+            return coll;
+        } else { //ne marche que lorsque la souris rentre ou sort de la fênetre de graphics
+            System.out.println("Pas dessus");
+        }
         return null;
     }
 
