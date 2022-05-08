@@ -20,7 +20,7 @@ public class Editor extends JFrame
 		super("Shapes Editor");
 		MenuBar window = new MenuBar(this);
 		ToolBar windows= new ToolBar(this);
-		windows.setVisible(true);
+
 		this.addWindowListener(new java.awt.event.WindowAdapter()
 		{
 			public void windowClosing(java.awt.event.WindowEvent evt)
@@ -34,6 +34,7 @@ public class Editor extends JFrame
 		System.out.println(model);
 		this.sview = new ShapesView(this.model);
 		this.sview.setPreferredSize(new Dimension(300,300));
+		this.getContentPane().add(windows.createToolBar(), BorderLayout.NORTH);
 		this.getContentPane().add(this.sview, java.awt.BorderLayout.CENTER);
 
 	}

@@ -14,22 +14,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
 
-public class ToolBar extends JFrame {
+public class ToolBar {
     Editor editor;
 
     public ToolBar(Editor editor){
         this.editor = editor;
-        this.setSize(600,300);
-        this.setLocationRelativeTo(null); //Centre par rapport au conteneur en parametre
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE); //Detruire l'objet
-
-        JPanel contentPane =(JPanel) this.getContentPane();//Construction et injection de la barre
-        //contentPane.setLayout(new BorderLayout()); val par default
-        contentPane.add(createToolBar(), BorderLayout.NORTH);
-
     }
 
-    private JToolBar createToolBar(){
+    public JToolBar createToolBar(){
         JToolBar toolBar= new JToolBar();
         JButton buttonNew=new JButton(new ImageIcon("icons/new.png"));
         toolBar.add(buttonNew);
@@ -94,7 +86,7 @@ public class ToolBar extends JFrame {
     }
     //barre d'outil //JFileChooser (sauvegarder)
     public void ColorListener(ActionEvent event){
-        JOptionPane.showMessageDialog(this, "Systeme de couleur");
+        JOptionPane.showMessageDialog(editor, "Systeme de couleur");
     }
 
 
