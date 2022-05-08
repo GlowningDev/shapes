@@ -1,4 +1,5 @@
 package graphics.shapes;
+import java.lang.Cloneable;
 
 import graphics.shapes.attributes.Attributes;
 import graphics.shapes.ui.ShapeVisitor;
@@ -7,7 +8,7 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Shape {
+public abstract class Shape implements Cloneable {
 
     Map<String, Attributes> attributes;
 

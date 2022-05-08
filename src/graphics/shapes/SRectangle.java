@@ -39,4 +39,10 @@ public class SRectangle extends Shape {
     public void accept(ShapeVisitor sv) {
         sv.visitRectangle(this);
     }
+
+    @Override
+    public Object clone() {
+        SRectangle r = new SRectangle(rect.getLocation(), rect.getBounds().width, rect.getBounds().height);
+        return r;
+    }
 }

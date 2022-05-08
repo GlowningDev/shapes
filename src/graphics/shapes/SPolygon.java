@@ -86,6 +86,10 @@ public class SPolygon extends Shape {
     @Override
     public void accept(ShapeVisitor sv) {
         sv.visitPolygon(this);
-
+    }
+    @Override
+    public Object clone() {
+        SPolygon p = new SPolygon(getxPoints(),getyPoints(),getNbPoints());
+        return p;
     }
 }

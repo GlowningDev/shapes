@@ -37,4 +37,10 @@ public class SCircle extends Shape {
     public void accept(ShapeVisitor sv) {
         sv.visitCircle(this);
     }
+
+    @Override
+    public Object clone() {
+        SCircle c = new SCircle(point.getLocation(), rad);
+        return c;
+    }
 }

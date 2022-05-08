@@ -1,5 +1,6 @@
 package graphics.shapes.ui;
 
+
 import graphics.shapes.SCollection;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.SelectionAttributes;
@@ -84,6 +85,13 @@ public class MenuBar extends JFrame {
         itemCut.setMnemonic('C');
         itemCut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,KeyEvent.CTRL_DOWN_MASK));
         itemCut.setIcon(new ImageIcon("icons/cut.png"));
+        itemCut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SCollection coll = editor.sview.getModel();
+                cut(coll);
+            }
+        });
 
 
         JMenuItem itemPaste= new JMenuItem("Paste");
@@ -91,6 +99,15 @@ public class MenuBar extends JFrame {
         itemPaste.setMnemonic('P');
         itemPaste.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V,KeyEvent.CTRL_DOWN_MASK));
         itemPaste.setIcon(new ImageIcon("icons/paste.png"));
+        itemPaste.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SCollection coll = editor.sview.getModel();
+                Shape s= paste(coll);
+                s.addAttributes(new SelectionAttributes());
+                coll.add(s);
+            }
+        });
 
 
 
@@ -104,11 +121,21 @@ public class MenuBar extends JFrame {
 
             if (sa.isSelected()) {
                 copiedShape = s;
-                return s;
+                return copiedShape;
             }
         }
 
         return null;
+    }
+    private Shape cut(SCollection coll){
+        Shape copyS=copy(coll);
+        coll.remove(copyS);
+        return copyS;
+    }
+
+    private Shape paste(SCollection coll){
+        Shape pasteShape= (Shape) copiedShape.clone();
+        return pasteShape;
     }
 
 //barre d'outil //JFileChooser (sauvegarder)
