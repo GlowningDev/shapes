@@ -1,5 +1,9 @@
 package graphics.shapes.ui;
 
+import graphics.shapes.SRectangle;
+import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.attributes.SelectionAttributes;
+
 import javax.swing.*;
 import javax.tools.Tool;
 import java.awt.*;
@@ -35,6 +39,7 @@ public class ToolBar extends JFrame {
 
         JButton buttonRectangle=new JButton(new ImageIcon("icons/rectangle.svg"));
         buttonRectangle.setToolTipText("Forme: Rectangle");
+
         toolBar.add(buttonRectangle);
 
         JButton buttonTriangle=new JButton(new ImageIcon("icons/new.png"));

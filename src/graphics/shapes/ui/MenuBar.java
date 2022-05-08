@@ -93,5 +93,4 @@ public class MenuBar extends JFrame {
         JOptionPane.showMessageDialog(this, "Entrer un message");
     }
 
-
 }
