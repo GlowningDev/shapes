@@ -1,21 +1,22 @@
 package graphics.shapes.ui;
 
+import graphics.shapes.SCollection;
+import graphics.shapes.Shape;
+import graphics.shapes.attributes.SelectionAttributes;
+
 import javax.swing.*;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
-import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.Iterator;
 
 public class MenuBar extends JFrame {
 
-    public MenuBar(){
-        super("Paint de bg");
-        this.setSize(600,600);
-        this.setLocationRelativeTo(null); //Centre par rapport au conteneur en parametre
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE); //Detruire l'objet
+    Editor editor;
+    Shape copiedShape;
 
-        /* Barre de menu*/
-        this.setJMenuBar(createMenuBar());
+    public MenuBar(Editor editor) {
+        this.editor = editor;
     }
 
     public JMenuBar createMenuBar() {
@@ -25,7 +26,7 @@ public class MenuBar extends JFrame {
         menuFile.setMnemonic('F');
 
         JMenuItem itemNew= new JMenuItem("Nouveau Fichier");
-        itemNew.addActionListener(this::menuListener);
+        //itemNew.addActionListener(this::menuListener);
         menuFile.add(itemNew);
         itemNew.setMnemonic('N');
         itemNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,KeyEvent.CTRL_DOWN_MASK));
@@ -69,6 +70,21 @@ public class MenuBar extends JFrame {
         itemCopy.setMnemonic('C');
         itemCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,KeyEvent.CTRL_DOWN_MASK));
         itemCopy.setIcon(new ImageIcon("icons/copy.png"));
+        itemCopy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SCollection coll = editor.sview.getModel();
+                for (Iterator<Shape> it = coll.iterator(); it.hasNext();) {
+                    Shape s = it.next();
+                    SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
+
+                    if (sa.isSelected()) {
+                        copiedShape = s;
+                        return;
+                    }
+                }
+            }
+        });
 
 
         JMenuItem itemCut= new JMenuItem("Cut");
@@ -89,8 +105,8 @@ public class MenuBar extends JFrame {
         return menuBar;
     }
 //barre d'outil //JFileChooser (sauvegarder)
-    public void menuListener(ActionEvent event){
+    /*public void menuListener(ActionEvent event){
         JOptionPane.showMessageDialog(this, "Entrer un message");
-    }
+    }*/
 
 }
