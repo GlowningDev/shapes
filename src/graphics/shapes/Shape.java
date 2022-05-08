@@ -33,4 +33,11 @@ public abstract class Shape implements Cloneable {
     public abstract Rectangle getBounds();
     public abstract void accept(ShapeVisitor sv);
 
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

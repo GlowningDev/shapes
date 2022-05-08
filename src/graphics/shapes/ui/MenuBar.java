@@ -104,7 +104,6 @@ public class MenuBar extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 SCollection coll = editor.sview.getModel();
                 Shape s= paste(coll);
-                s.addAttributes(new SelectionAttributes());
                 coll.add(s);
             }
         });

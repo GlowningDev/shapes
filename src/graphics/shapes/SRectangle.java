@@ -1,5 +1,7 @@
 package graphics.shapes;
 
+import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.ui.ShapeVisitor;
 
 import java.awt.*;
@@ -43,6 +45,11 @@ public class SRectangle extends Shape {
     @Override
     public Object clone() {
         SRectangle r = new SRectangle(rect.getLocation(), rect.getBounds().width, rect.getBounds().height);
+        r.addAttributes(new SelectionAttributes());
+
+        if (this.getAttributes(ColorAttributes.ID) != null)
+            r.addAttributes(this.getAttributes(ColorAttributes.ID));
+
         return r;
     }
 }
