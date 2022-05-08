@@ -1,13 +1,12 @@
 package graphics.shapes.ui;
 
-import graphics.shapes.SCircle;
-import graphics.shapes.SCollection;
-import graphics.shapes.SRectangle;
+import graphics.shapes.*;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.ui.Controller;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
 
@@ -55,8 +54,8 @@ public class ShapesController extends Controller {
         this.lastMouseClick = e.getPoint();
 
         if (e.isControlDown()) {
-            //drewShape = new SRectangle(e.getPoint(), 1, 1);
-            drewShape = new SCircle(e.getPoint(), 1);
+            drewShape = new SRectangle(e.getPoint(), 1, 1);
+            //drewShape = new SCircle(e.getPoint(), 1);
             drewShape.addAttributes(new SelectionAttributes());
             ((SCollection) getView().getModel()).add(drewShape);
         }
@@ -85,6 +84,14 @@ public class ShapesController extends Controller {
     @Override
     public void mouseReleased(MouseEvent e) {
         drewShape = null;
+    }
+
+    @Override
+    public void keyPressed(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            unselectAll();
+            getView().repaint();
+        }
     }
 
     private Shape onTarget(MouseEvent e){
