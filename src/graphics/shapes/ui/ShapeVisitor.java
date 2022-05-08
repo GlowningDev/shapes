@@ -5,7 +5,7 @@ import graphics.shapes.SCollection;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
 
-public interface ShapeVisitor {
+    public interface ShapeVisitor {
 
     public void visitRectangle(SRectangle r);
     public void visitCircle(SCircle r);

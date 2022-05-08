@@ -76,5 +76,34 @@ public class ShapesController extends Controller {
     @Override
     public void keyPressed(KeyEvent evt) {
         System.out.println(evt.getKeyCode());
+        if(evt.isControlDown() && evt.getKeyCode()==evt.VK_A){
+            for (Shape s:((SCollection) getView().getModel()).getShapes()){
+                SelectionAttributes selected = (SelectionAttributes) s.getAttributes("selection");
+                selected.select();
+            }
+            getView().repaint();
+        }
+        if(evt.getKeyCode()==evt.VK_UP) {
+            translate(0,-1);
+        }
+        if(evt.getKeyCode()==evt.VK_DOWN) {
+            translate(0,1);
+        }
+        if(evt.getKeyCode()==evt.VK_LEFT) {
+            translate(-1,0);
+        }
+        if(evt.getKeyCode()==evt.VK_RIGHT) {
+            translate(1,0);
+        }
+    }
+
+    public void translate(int x, int y){
+        for (Shape s : ((SCollection) getView().getModel()).getShapes()) {
+            SelectionAttributes selected = (SelectionAttributes) s.getAttributes("selection");
+            if(selected.isSelected()){
+                s.translate(x,y);
+            }
+        }
+        getView().repaint();
     }
 }
