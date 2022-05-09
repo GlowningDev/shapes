@@ -108,4 +108,9 @@ public class ShapeDraftman implements ShapeVisitor {
         }
     }
 
+    @Override
+    public void visitPolygon(SPolygon p) {
+        g.drawPolygon(p.getxPoints(), p.getyPoints(), p.getNbPoints());
+    }
+
 }
