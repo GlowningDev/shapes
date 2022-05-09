@@ -4,8 +4,10 @@ package graphics.shapes.ui;
 import graphics.shapes.SCollection;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.SelectionAttributes;
+import graphics.shapes.ui.ToolBar;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -22,6 +24,7 @@ public class MenuBar extends JFrame {
 
     public JMenuBar createMenuBar() {
         JMenuBar menuBar=new JMenuBar();
+
         JMenu menuFile= new JMenu ("Fichier");
         menuBar.add(menuFile);
         menuFile.setMnemonic('F');
@@ -66,7 +69,7 @@ public class MenuBar extends JFrame {
         itemRedo.setIcon(new ImageIcon("icons/redo.png"));
 
 
-        JMenuItem itemCopy= new JMenuItem("Copy");
+        JMenuItem itemCopy= new JMenuItem("Copier");
         menuEdit.add(itemCopy);
         itemCopy.setMnemonic('C');
         itemCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,KeyEvent.CTRL_DOWN_MASK));
@@ -80,7 +83,7 @@ public class MenuBar extends JFrame {
         });
 
 
-        JMenuItem itemCut= new JMenuItem("Cut");
+        JMenuItem itemCut= new JMenuItem("Couper");
         menuEdit.add(itemCut);
         itemCut.setMnemonic('C');
         itemCut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,KeyEvent.CTRL_DOWN_MASK));
@@ -94,7 +97,7 @@ public class MenuBar extends JFrame {
         });
 
 
-        JMenuItem itemPaste= new JMenuItem("Paste");
+        JMenuItem itemPaste= new JMenuItem("Coller");
         menuEdit.add(itemPaste);
         itemPaste.setMnemonic('P');
         itemPaste.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V,KeyEvent.CTRL_DOWN_MASK));
@@ -108,7 +111,78 @@ public class MenuBar extends JFrame {
             }
         });
 
+        JMenu menuShape= new JMenu ("Forme");
+        menuBar.add(menuShape);
+        menuShape.setMnemonic('F');
 
+        JMenuItem itemSquare= new JMenuItem("Carré");
+        menuShape.add(itemSquare);
+        itemSquare.setMnemonic('C');
+        itemSquare.setIcon(new ImageIcon("icons/square.png"));
+
+        JMenuItem itemRectangle= new JMenuItem("Rectangle");
+        menuShape.add(itemRectangle);
+        itemRectangle.setMnemonic('R');
+        itemRectangle.setIcon(new ImageIcon("icons/rectangle.png"));
+
+        JMenuItem itemCircle= new JMenuItem("Cercle");
+        menuShape.add(itemCircle);
+        itemCircle.setMnemonic('C');
+        itemCircle.setIcon(new ImageIcon("icons/circle.png"));
+
+        JMenuItem itemTriangle= new JMenuItem("Triangle");
+        menuShape.add(itemTriangle);
+        itemTriangle.setMnemonic('T');
+        itemTriangle.setIcon(new ImageIcon("icons/triangle.png"));
+
+        JMenuItem itemPolygon= new JMenuItem("Polygone");
+        menuShape.add(itemPolygon);
+        itemPolygon.setMnemonic('P');
+        itemPolygon.setIcon(new ImageIcon("icons/pentagon.png"));
+
+
+        JMenu menuExtension= new JMenu ("Extension");
+        menuBar.add(menuExtension);
+        menuExtension.setMnemonic('E');
+
+        JMenuItem itemText= new JMenuItem("Texte");
+        menuExtension.add(itemText);
+        itemText.setMnemonic('T');
+        itemText.setIcon(new ImageIcon("icons/text.png"));
+
+        JMenuItem itemDraw= new JMenuItem("Dessin");
+        menuExtension.add(itemDraw);
+        itemDraw.setMnemonic('D');
+        itemDraw.setIcon(new ImageIcon("icons/draw.png"));
+
+        JMenuItem itemPipette= new JMenuItem("Pipette");
+        menuExtension.add(itemPipette);
+        itemPipette.setMnemonic('P');
+        itemPipette.setIcon(new ImageIcon("icons/pipette.png"));
+
+        JMenuItem itemGomme= new JMenuItem("Gomme");
+        menuExtension.add(itemGomme);
+        itemGomme.setMnemonic('G');
+        itemGomme.setIcon(new ImageIcon("icons/gomme.png"));
+        itemGomme.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SCollection coll = editor.sview.getModel();
+                //erase(coll);
+            }
+            });
+
+        JMenuItem itemColor= new JMenuItem("Couleur");
+        menuExtension.add(itemColor);
+        itemColor.setMnemonic('C');
+        itemColor.setIcon(new ImageIcon("icons/color.png"));
+        itemColor.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SCollection coll = editor.sview.getModel();
+                //Color color = ChooseColor();
+            }
+        });
 
         return menuBar;
     }
@@ -137,9 +211,5 @@ public class MenuBar extends JFrame {
         return pasteShape;
     }
 
-//barre d'outil //JFileChooser (sauvegarder)
-    /*public void menuListener(ActionEvent event){
-        JOptionPane.showMessageDialog(this, "Entrer un message");
-    }*/
 
 }
