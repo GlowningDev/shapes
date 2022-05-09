@@ -91,7 +91,7 @@ public class ShapesController extends Controller {
             else{
                 ColorAttributes ca= (ColorAttributes) s.getAttributes(ColorAttributes.ID);
                 if (ca != null){
-                    ca.filledColor=Color.black; //change la couleur de la foem au noir aus survol
+                    ca.filledColor=Color.black; //change la couleur de la forme au noir au survol
                 }
             }
         }
