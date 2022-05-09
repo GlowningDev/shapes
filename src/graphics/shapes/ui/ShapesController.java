@@ -84,7 +84,7 @@ public class ShapesController extends Controller {
                 ca.filledColor=ca.bufferColor;
             }
         });
-        Shape s = newTarget(e.getX(),e.getY());
+        Shape s = onTarget(e);
         if (s!=null){
             if (s instanceof SCollection){
                 for (Iterator<Shape> it = coll.iterator(); it.hasNext(); ) {
@@ -139,11 +139,12 @@ public class ShapesController extends Controller {
         return null;
     }
 
-    private Shape newTarget(int x, int y) {
+    private Shape onTarget(MouseEvent e){
+        Point loc = e.getPoint();
         SCollection coll = (SCollection) getView().getModel();
-        for (Iterator<Shape> it = coll.iterator(); it.hasNext(); ) {
+        for (Iterator<Shape> it = coll.iterator(); it.hasNext();) {
             Shape s = it.next();
-            if (s.getBounds().contains(new Point(x,y))) {
+            if (s.getBounds().contains(loc)) {
                 return s;
             }
         }
