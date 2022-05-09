@@ -22,13 +22,14 @@ public class SPolygon extends Shape {
 
 
     @Override
-    public Point getLoc() { return null;}
+    public Point getLoc() { return null;} //obtenir la localisation
 
     @Override
-    public void setLoc(Point p) {point.setLocation(p);}
+    public void setLoc(Point p) {point.setLocation(p);} //definir la localisation
 
     @Override
     public void translate(int x, int y) {point.translate(x,y);}
+
     public int[] mini(int[] tab) {
         int min = Integer.MAX_VALUE;
         int [] minimum= new int[2];
@@ -59,6 +60,7 @@ public class SPolygon extends Shape {
         int maxY= maxi(yPoints);
         return new Rectangle(minX, minY, maxX - minX, maxY- minY);
     }
+
     public int[] getxPoints() {
         return xPoints;
     }

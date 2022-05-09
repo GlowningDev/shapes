@@ -4,7 +4,6 @@ package graphics.shapes.ui;
 import graphics.shapes.SCollection;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.SelectionAttributes;
-import graphics.shapes.ui.ToolBar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -189,7 +188,7 @@ public class MenuBar extends JFrame {
         return menuBar;
     }
 
-    private Shape copy(SCollection coll) {
+    public Shape copy(SCollection coll) {
         for (Iterator<Shape> it = coll.iterator(); it.hasNext();) {
             Shape s = it.next();
             SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
@@ -202,13 +201,14 @@ public class MenuBar extends JFrame {
 
         return null;
     }
-    private Shape cut(SCollection coll){
+
+    public Shape cut(SCollection coll){
         Shape copyS=copy(coll);
         coll.remove(copyS);
         return copyS;
     }
 
-    private Shape paste(SCollection coll){
+    public Shape paste(SCollection coll){
         Shape pasteShape= (Shape) copiedShape.clone();
         return pasteShape;
     }

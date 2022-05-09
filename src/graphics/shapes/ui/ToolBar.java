@@ -1,20 +1,16 @@
 package graphics.shapes.ui;
 
 import graphics.shapes.SCollection;
-import graphics.shapes.SRectangle;
 import graphics.shapes.Shape;
-import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
 import javax.swing.*;
-import javax.tools.Tool;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.util.Iterator;
 
-public class ToolBar<container> {
+public class ToolBar {
     Editor editor;
 
     public ToolBar(Editor editor) {
@@ -27,7 +23,7 @@ public class ToolBar<container> {
         toolBar.add(buttonNew);
 
         JButton buttonSquare = new JButton(new ImageIcon("icons/square.png"));
-        buttonSquare.setToolTipText("Forme: Square");
+        buttonSquare.setToolTipText("Forme: Carré");
         toolBar.add(buttonSquare);
 
         JButton buttonRectangle = new JButton(new ImageIcon("icons/rectangle.png"));
