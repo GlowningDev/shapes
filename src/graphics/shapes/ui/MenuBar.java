@@ -13,6 +13,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
 
+import static graphics.shapes.ui.ToolBar.chooseColor;
+import static graphics.shapes.ui.ToolBar.erase;
+
 public class MenuBar extends JFrame {
 
     Editor editor;
@@ -30,7 +33,6 @@ public class MenuBar extends JFrame {
         menuFile.setMnemonic('F');
 
         JMenuItem itemNew= new JMenuItem("Nouveau Fichier");
-        //itemNew.addActionListener(this::menuListener);
         menuFile.add(itemNew);
         itemNew.setMnemonic('N');
         itemNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,KeyEvent.CTRL_DOWN_MASK));
@@ -155,11 +157,6 @@ public class MenuBar extends JFrame {
         itemDraw.setMnemonic('D');
         itemDraw.setIcon(new ImageIcon("icons/draw.png"));
 
-        JMenuItem itemPipette= new JMenuItem("Pipette");
-        menuExtension.add(itemPipette);
-        itemPipette.setMnemonic('P');
-        itemPipette.setIcon(new ImageIcon("icons/pipette.png"));
-
         JMenuItem itemGomme= new JMenuItem("Gomme");
         menuExtension.add(itemGomme);
         itemGomme.setMnemonic('G');
@@ -168,9 +165,15 @@ public class MenuBar extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 SCollection coll = editor.sview.getModel();
-                //erase(coll);
+                erase(coll);
             }
-            });
+        });
+
+        JMenuItem itemPipette= new JMenuItem("Pipette");
+        menuExtension.add(itemPipette);
+        itemPipette.setMnemonic('P');
+        itemPipette.setIcon(new ImageIcon("icons/pipette.png"));
+
 
         JMenuItem itemColor= new JMenuItem("Couleur");
         menuExtension.add(itemColor);
@@ -179,8 +182,7 @@ public class MenuBar extends JFrame {
         itemColor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SCollection coll = editor.sview.getModel();
-                //Color color = ChooseColor();
+                Color color = chooseColor();
             }
         });
 

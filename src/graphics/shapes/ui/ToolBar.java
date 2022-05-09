@@ -91,7 +91,7 @@ public class ToolBar<container> {
     }
 
 
-    public Shape erase(SCollection coll) {
+    public static Shape erase(SCollection coll) {
         for (Iterator<Shape> it = coll.iterator(); it.hasNext(); ) {
             Shape s = it.next();
             SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
@@ -104,10 +104,10 @@ public class ToolBar<container> {
         }
         return null;
     }
-    public Color chooseColor(){
+    public static Color chooseColor(){
         JColorChooser colorChooser= new JColorChooser();
         Color color=JColorChooser.showDialog(null,"Couleur à selectionner", Color.black);
-        JOptionPane.showMessageDialog(editor, "La couleur a bien été selectionné");
+        JOptionPane.showMessageDialog(null, "La couleur a bien été selectionné");
         return color;
     }
 }
