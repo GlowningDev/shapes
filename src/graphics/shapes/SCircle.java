@@ -1,5 +1,7 @@
 package graphics.shapes;
 
+import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.ui.ShapeVisitor;
 
 import java.awt.*;
@@ -38,10 +40,20 @@ public class SCircle extends Shape {
         sv.visitCircle(this);
     }
 
-    @Override
     public void setSize(Point p) {
         int tmpX = (p.x - point.x) / 2;
         int tmpY = (p.y - point.y) / 2;
         rad = Math.max(tmpX, tmpY);
+    }
+  
+    @Override
+    public Object clone() {
+        SCircle c = new SCircle(point.getLocation(), rad);
+        c.addAttributes(new SelectionAttributes());
+
+        if (this.getAttributes(ColorAttributes.ID) != null)
+            c.addAttributes(this.getAttributes(ColorAttributes.ID));
+
+        return c;
     }
 }

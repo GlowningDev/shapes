@@ -1,5 +1,7 @@
 package graphics.shapes;
 
+import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.ui.ShapeVisitor;
 
 import java.awt.*;
@@ -40,10 +42,20 @@ public class SRectangle extends Shape {
         sv.visitRectangle(this);
     }
 
-    @Override
     public void setSize(Point p) {
         // TODO: La forme est pleine quand les calculs vont dans le négatif
         rect.width = p.x - rect.x;
         rect.height = p.y - rect.y;
+    }
+    
+    @Override
+    public Object clone() {
+        SRectangle r = new SRectangle(rect.getLocation(), rect.getBounds().width, rect.getBounds().height);
+        r.addAttributes(new SelectionAttributes());
+
+        if (this.getAttributes(ColorAttributes.ID) != null)
+            r.addAttributes(this.getAttributes(ColorAttributes.ID));
+
+        return r;
     }
 }

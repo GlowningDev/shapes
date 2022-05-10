@@ -21,10 +21,6 @@ public class ShapeDraftman implements ShapeVisitor {
     public void visitRectangle(SRectangle r) {
         ColorAttributes ca = (ColorAttributes) r.getAttributes(ColorAttributes.ID);
         SelectionAttributes sa = (SelectionAttributes) r.getAttributes(SelectionAttributes.ID);
-        //new MouseTranslator(r.getRect().x,r.getRect().y);
-        /*Point a = MouseInfo.getPointerInfo().getLocation();
-        int x = (int) a.getX();
-        int y = (int) a.getY();*/
 
         if (ca == null)
             ca = DEFAULTCOLORATTRIBUES;
@@ -40,12 +36,12 @@ public class ShapeDraftman implements ShapeVisitor {
             g.fillRect(r.getRect().x, r.getRect().y, r.getRect().width, r.getRect().height);
         }*/
 
-        else if (ca.filled) {
+        if (ca.filled) {
             g.setColor(ca.filledColor);
             g.fillRect(r.getRect().x, r.getRect().y, r.getRect().width, r.getRect().height);
         }
 
-        else if (ca.stroked) {
+        if (ca.stroked) {
             g.setColor(ca.filledColor);
             g.drawRect(r.getRect().x, r.getRect().y, r.getRect().width, r.getRect().height);
         }
@@ -56,8 +52,6 @@ public class ShapeDraftman implements ShapeVisitor {
             g.fillRect(r.getBounds().x, r.getBounds().y, 5, 5);
             g.fillRect(r.getBounds().x + r.getBounds().width, r.getBounds().y + r.getBounds().height, 5, 5);
         }
-
-
     }
 
     @Override
@@ -131,6 +125,19 @@ public class ShapeDraftman implements ShapeVisitor {
             g.drawRect(c.getBounds().x, c.getBounds().y, c.getBounds().width, c.getBounds().height);
             g.fillRect(c.getBounds().x, c.getBounds().y, 5, 5);
             g.fillRect(c.getBounds().x + c.getBounds().width, c.getBounds().y + c.getBounds().height, 5, 5);
+        }
+    }
+
+    @Override
+    public void visitPolygon(SPolygon p) {
+        SelectionAttributes sa = (SelectionAttributes) p.getAttributes(SelectionAttributes.ID);
+        g.drawPolygon(p.getxPoints(), p.getyPoints(), p.getNbPoints());
+
+        if (sa.isSelected()) {
+            g.setColor(DEFAULTCOLORATTRIBUES.strokedColor);
+            g.drawRect(p.getBounds().x, p.getBounds().y, p.getBounds().width, p.getBounds().height);
+            g.fillRect(p.getBounds().x, p.getBounds().y, 5, 5);
+            g.fillRect(p.getBounds().x + p.getBounds().width, p.getBounds().y + p.getBounds().height, 5, 5);
         }
     }
 

@@ -9,12 +9,14 @@ public class ColorAttributes extends Attributes {
     public boolean stroked;
     public Color filledColor;
     public Color strokedColor;
+    public Color bufferColor;
 
     public ColorAttributes(boolean filled, boolean stroked, Color filledColor, Color strokedColor) {
         this.filled = filled;
         this.stroked = stroked;
         this.filledColor = filledColor;
         this.strokedColor = strokedColor;
+        this.bufferColor = filledColor;
     }
 
     @Override

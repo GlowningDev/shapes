@@ -55,4 +55,17 @@ public class SCollection extends Shape {
     public void add(Shape s) {
         this.shapes.add(s);
     }
+
+    public void remove(Shape s) {
+        this.shapes.remove(s);
+    }
+
+    @Override
+    public Object clone() {
+        return null;
+    }
+
+    public List<Shape> getShapes(){
+        return shapes;
+    }
 }

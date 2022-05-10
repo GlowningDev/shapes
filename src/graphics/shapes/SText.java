@@ -48,4 +48,12 @@ public class SText extends Shape {
     public void accept(ShapeVisitor sv) {
         sv.visitText(this);
     }
+
+
+    @Override
+    public Object clone() {
+        SText t = new SText(point.getLocation(),getText());
+        return t;
+    }
 }
+
