@@ -1,11 +1,13 @@
 package graphics.shapes.ui;
 
 import graphics.shapes.SCollection;
+import graphics.shapes.SText;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.ui.Controller;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
@@ -71,6 +73,13 @@ public class ShapesController extends Controller {
                     getView().repaint();
                 }
             }
+
+            if (e.getClickCount() == 2) {
+                if (s instanceof SText text) {
+                    String str = (String) JOptionPane.showInputDialog(getView(), "Nouveau texte :", "Modification du texte", JOptionPane.PLAIN_MESSAGE, null, null, text.getText());
+                    text.setText(str != null ? str : text.getText());
+                }
+            }
         }
     }
 
@@ -112,6 +121,40 @@ public class ShapesController extends Controller {
         }
 
         lastMouseClick = loc;
+        getView().repaint();
+    }
+
+    @Override
+    public void keyPressed(KeyEvent evt) {
+        System.out.println(evt.getKeyCode());
+        if(evt.isControlDown() && evt.getKeyCode()==evt.VK_A){
+            for (Shape s:((SCollection) getView().getModel()).getShapes()){
+                SelectionAttributes selected = (SelectionAttributes) s.getAttributes("selection");
+                selected.select();
+            }
+            getView().repaint();
+        }
+        if(evt.getKeyCode()==evt.VK_UP) {
+            translate(0,-1);
+        }
+        if(evt.getKeyCode()==evt.VK_DOWN) {
+            translate(0,1);
+        }
+        if(evt.getKeyCode()==evt.VK_LEFT) {
+            translate(-1,0);
+        }
+        if(evt.getKeyCode()==evt.VK_RIGHT) {
+            translate(1,0);
+        }
+    }
+
+    public void translate(int x, int y){
+        for (Shape s : ((SCollection) getView().getModel()).getShapes()) {
+            SelectionAttributes selected = (SelectionAttributes) s.getAttributes("selection");
+            if(selected.isSelected()){
+                s.translate(x,y);
+            }
+        }
         getView().repaint();
     }
 
