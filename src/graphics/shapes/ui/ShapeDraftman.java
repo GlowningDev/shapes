@@ -110,7 +110,15 @@ public class ShapeDraftman implements ShapeVisitor {
 
     @Override
     public void visitPolygon(SPolygon p) {
+        SelectionAttributes sa = (SelectionAttributes) p.getAttributes(SelectionAttributes.ID);
         g.drawPolygon(p.getxPoints(), p.getyPoints(), p.getNbPoints());
+
+        if (sa.isSelected()) {
+            g.setColor(DEFAULTCOLORATTRIBUES.strokedColor);
+            g.drawRect(p.getBounds().x, p.getBounds().y, p.getBounds().width, p.getBounds().height);
+            g.fillRect(p.getBounds().x, p.getBounds().y, 5, 5);
+            g.fillRect(p.getBounds().x + p.getBounds().width, p.getBounds().y + p.getBounds().height, 5, 5);
+        }
     }
 
 }

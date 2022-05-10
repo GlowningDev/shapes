@@ -18,10 +18,9 @@ public class Editor extends JFrame
 	public Editor()
 	{
 		super("Shapes Editor");
-		MenuBar window= new MenuBar();
-		window.setVisible(true);
-		ToolBar windows= new ToolBar();
-		windows.setVisible(true);
+		MenuBar window = new MenuBar(this);
+		ToolBar windows= new ToolBar(this);
+
 		this.addWindowListener(new java.awt.event.WindowAdapter()
 		{
 			public void windowClosing(java.awt.event.WindowEvent evt)
@@ -29,11 +28,13 @@ public class Editor extends JFrame
 				System.exit(0);
 			}
 		});
+		this.setJMenuBar(window.createMenuBar());
 
 		this.buildModel();
 		System.out.println(model);
 		this.sview = new ShapesView(this.model);
 		this.sview.setPreferredSize(new Dimension(300,300));
+		this.getContentPane().add(windows.createToolBar(), BorderLayout.NORTH);
 		this.getContentPane().add(this.sview, java.awt.BorderLayout.CENTER);
 
 	}
@@ -55,8 +56,8 @@ public class Editor extends JFrame
 
 
 		SPolygon p = new SPolygon(new int[]{50,70,40,30}, new int[]{10, 30, 20,10},4);
-		c.addAttributes(new ColorAttributes(false,true,Color.PINK,Color.PINK));
-		c.addAttributes(new SelectionAttributes());
+		p.addAttributes(new ColorAttributes(false,true,Color.PINK,Color.PINK));
+		p.addAttributes(new SelectionAttributes());
 		this.model.add(p);
 
 		SText t= new SText(new Point(100,100),"hello");
