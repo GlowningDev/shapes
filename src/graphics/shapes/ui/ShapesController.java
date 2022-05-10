@@ -1,6 +1,7 @@
 package graphics.shapes.ui;
 
 import graphics.shapes.SCollection;
+import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.ColorAttributes;
@@ -33,43 +34,36 @@ public class ShapesController extends Controller {
                 if (ca.filledColor == Color.red){
                     ca.filledColor = Color.orange;
                     ca.bufferColor = Color.orange;
-                    System.out.println("Je deviens orange");
                     getView().repaint();
                 }
                 else if (ca.filledColor == Color.orange){
                     ca.filledColor = Color.yellow;
                     ca.bufferColor = Color.yellow;
-                    System.out.println("Je deviens jaune");
                     getView().repaint();
                 }
                 else if (ca.filledColor == Color.yellow){
                     ca.filledColor = Color.green;
                     ca.bufferColor = Color.green;
-                    System.out.println("Je deviens vert");
                     getView().repaint();
                 }
                 else if (ca.filledColor == Color.green){
                     ca.filledColor = Color.blue;
                     ca.bufferColor = Color.blue;
-                    System.out.println("Je deviens bleu");
                     getView().repaint();
                 }
                 else if (ca.filledColor == Color.blue){
                     ca.filledColor = Color.pink;
                     ca.bufferColor = Color.pink;
-                    System.out.println("Je deviens rose");
                     getView().repaint();
                 }
                 else if (ca.filledColor == Color.pink){
                     ca.filledColor = Color.red;
                     ca.bufferColor = Color.red;
-                    System.out.println("Je deviens rouge");
                     getView().repaint();
                 }
                 else if (ca.filledColor == Color.black){
                     ca.filledColor = Color.red;
                     ca.bufferColor = Color.red;
-                    System.out.println("Je deviens rouge");
                     getView().repaint();
                 }
             }
@@ -89,14 +83,25 @@ public class ShapesController extends Controller {
         coll.iterator().forEachRemaining(shape -> {
             ColorAttributes ca = (ColorAttributes) shape.getAttributes(ColorAttributes.ID);
             if (ca!=null){
-                ca.filledColor=ca.bufferColor;
+                ca.filledColor=ca.bufferColor; //ramène la couleur de la forme à sa couleur de base
             }
         });
-        Shape s = newTarget(e.getX(),e.getY());
+        Shape s = onTarget(e);
         if (s!=null){
-            ColorAttributes ca= (ColorAttributes) s.getAttributes(ColorAttributes.ID);
-            if (ca != null){
-                ca.filledColor=Color.black;
+            if (s instanceof SCollection){
+                for (Iterator<Shape> it = coll.iterator(); it.hasNext(); ) {
+                    Shape s2 = it.next();
+                    ColorAttributes ca= (ColorAttributes) s2.getAttributes(ColorAttributes.ID);
+                    if (ca != null){
+                        ca.filledColor=Color.black;
+                    }
+                }
+            }
+            else{
+                ColorAttributes ca= (ColorAttributes) s.getAttributes(ColorAttributes.ID);
+                if (ca != null){
+                    ca.filledColor=Color.black; //change la couleur de la forme au noir au survol
+                }
             }
         }
         getView().repaint();
@@ -170,28 +175,16 @@ public class ShapesController extends Controller {
         return null;
     }
 
-    private Shape newTarget(int x, int y) {
+    private Shape onTarget(MouseEvent e){
+        Point loc = e.getPoint();
         SCollection coll = (SCollection) getView().getModel();
-        for (Iterator<Shape> it = coll.iterator(); it.hasNext(); ) {
+        for (Iterator<Shape> it = coll.iterator(); it.hasNext();) {
             Shape s = it.next();
-            if (s.getBounds().contains(new Point(x,y))) {
+            if (s.getBounds().contains(loc)) {
                 return s;
             }
         }
 
-        return null;
-    }
-
-    private Shape onTarget(MouseEvent e) {
-        Point loc = e.getPoint();
-        Shape coll = (Shape) getView().getModel();
-        //Shape s = (Shape) coll;
-        if (coll.getBounds().contains(loc)) {
-            System.out.println("Dessus");
-            return coll;
-        } else { //ne marche que lorsque la souris rentre ou sort de la fênetre de graphics
-            System.out.println("Pas dessus");
-        }
         return null;
     }
 
