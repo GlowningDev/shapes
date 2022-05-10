@@ -65,4 +65,7 @@ public class SCollection extends Shape {
         return null;
     }
 
+    public List<Shape> getShapes(){
+        return shapes;
+    }
 }
