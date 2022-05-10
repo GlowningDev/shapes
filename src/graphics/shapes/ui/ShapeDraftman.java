@@ -22,6 +22,20 @@ public class ShapeDraftman implements ShapeVisitor {
         ColorAttributes ca = (ColorAttributes) r.getAttributes(ColorAttributes.ID);
         SelectionAttributes sa = (SelectionAttributes) r.getAttributes(SelectionAttributes.ID);
 
+        if (ca == null)
+            ca = DEFAULTCOLORATTRIBUES;
+
+
+        if (sa.isEntered()){
+            g.setColor(Color.black);
+            g.drawRect(r.getBounds().x,r.getBounds().y,r.getBounds().width,r.getBounds().height);
+        }
+
+        /*if(r.getRect().x>x  && x<r.getRect().x+r.getRect().width  && r.getRect().y>y && y<r.getRect().y+r.getRect().height){
+            g.setColor(Color.black);
+            g.fillRect(r.getRect().x, r.getRect().y, r.getRect().width, r.getRect().height);
+        }*/
+
         if (ca.filled) {
             g.setColor(ca.filledColor);
             g.fillRect(r.getRect().x, r.getRect().y, r.getRect().width, r.getRect().height);
@@ -45,14 +59,17 @@ public class ShapeDraftman implements ShapeVisitor {
         ColorAttributes ca = (ColorAttributes) c.getAttributes(ColorAttributes.ID);
         SelectionAttributes sa = (SelectionAttributes) c.getAttributes(SelectionAttributes.ID);
 
+        if (ca == null)
+            ca = DEFAULTCOLORATTRIBUES;
+
         if (ca.filled) {
             g.setColor(ca.filledColor);
-            g.fillOval(c.getBounds().x, c.getBounds().y, c.getBounds().width, c.getBounds().height);
+            g.fillOval(c.getLoc().x, c.getLoc().y, c.getBounds().width, c.getBounds().height);
         }
 
         if (ca.stroked) {
             g.setColor(ca.filledColor);
-            g.drawOval(c.getBounds().x, c.getBounds().y, c.getBounds().width, c.getBounds().height);
+            g.drawOval(c.getLoc().x, c.getLoc().y, c.getBounds().width, c.getBounds().height);
         }
 
         if (sa.isSelected()) {
@@ -68,6 +85,9 @@ public class ShapeDraftman implements ShapeVisitor {
         ColorAttributes ca = (ColorAttributes) t.getAttributes(ColorAttributes.ID);
         FontAttributes fa = (FontAttributes) t.getAttributes(FontAttributes.ID);
         SelectionAttributes sa = (SelectionAttributes) t.getAttributes(SelectionAttributes.ID);
+
+        if (ca == null)
+            ca = DEFAULTCOLORATTRIBUES;
 
         if (ca.filled) {
             g.setColor(ca.filledColor);

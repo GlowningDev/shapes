@@ -42,6 +42,12 @@ public class SRectangle extends Shape {
         sv.visitRectangle(this);
     }
 
+    public void setSize(Point p) {
+        // TODO: La forme est pleine quand les calculs vont dans le négatif
+        rect.width = p.x - rect.x;
+        rect.height = p.y - rect.y;
+    }
+    
     @Override
     public Object clone() {
         SRectangle r = new SRectangle(rect.getLocation(), rect.getBounds().width, rect.getBounds().height);

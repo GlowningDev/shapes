@@ -7,7 +7,7 @@ import graphics.shapes.ui.ShapeVisitor;
 import java.awt.*;
 
 public class SCircle extends Shape {
-    private Point point;
+    private final Point point;
     private int rad;
 
     public SCircle(Point point, int rad) {
@@ -17,7 +17,7 @@ public class SCircle extends Shape {
 
     @Override
     public Point getLoc() {
-        return null;
+        return point;
     }
 
     @Override
@@ -40,6 +40,12 @@ public class SCircle extends Shape {
         sv.visitCircle(this);
     }
 
+    public void setSize(Point p) {
+        int tmpX = (p.x - point.x) / 2;
+        int tmpY = (p.y - point.y) / 2;
+        rad = Math.max(tmpX, tmpY);
+    }
+  
     @Override
     public Object clone() {
         SCircle c = new SCircle(point.getLocation(), rad);

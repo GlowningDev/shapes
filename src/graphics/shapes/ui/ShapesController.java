@@ -1,8 +1,6 @@
 package graphics.shapes.ui;
 
-import graphics.shapes.SCollection;
-import graphics.shapes.SRectangle;
-import graphics.shapes.SText;
+import graphics.shapes.*;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
@@ -10,12 +8,14 @@ import graphics.ui.Controller;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
 
 public class ShapesController extends Controller {
     private Point lastMouseClick;
     private SelectionAttributes sa;
+    private Shape drewShape;
 
     public ShapesController(Object object) {
         super(object);
@@ -110,6 +110,13 @@ public class ShapesController extends Controller {
     @Override
     public void mousePressed(MouseEvent e) {
         this.lastMouseClick = e.getPoint();
+
+        if (e.isControlDown()) {
+            drewShape = new SRectangle(e.getPoint(), 1, 1);
+            //drewShape = new SCircle(e.getPoint(), 1);
+            drewShape.addAttributes(new SelectionAttributes());
+            ((SCollection) getView().getModel()).add(drewShape);
+        }
     }
 
     @Override
@@ -125,10 +132,18 @@ public class ShapesController extends Controller {
                 s.translate(loc.x - lastMouseClick.x, loc.y - lastMouseClick.y);
         }
 
+        if (e.isControlDown() && drewShape != null)
+            drewShape.setSize(loc);
+
         lastMouseClick = loc;
         getView().repaint();
     }
 
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        drewShape = null;
+    }
+  
     @Override
     public void keyPressed(KeyEvent evt) {
         System.out.println(evt.getKeyCode());
@@ -151,6 +166,11 @@ public class ShapesController extends Controller {
         if(evt.getKeyCode()==evt.VK_RIGHT) {
             translate(1,0);
         }
+      
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            unselectAll();
+            getView().repaint();
+        }
     }
 
     public void translate(int x, int y){
@@ -171,8 +191,6 @@ public class ShapesController extends Controller {
                 return s;
             }
         }
-
-        return null;
     }
 
     private Shape onTarget(MouseEvent e){
