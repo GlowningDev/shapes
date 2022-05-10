@@ -3,6 +3,7 @@ package graphics.shapes.attributes;
 public class SelectionAttributes extends Attributes {
     public static final String ID = "selection";
     private boolean selected = false;
+    //private boolean entered = false;
 
     public boolean isSelected() {
         return selected;

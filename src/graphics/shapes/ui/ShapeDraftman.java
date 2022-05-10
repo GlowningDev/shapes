@@ -1,12 +1,12 @@
 package graphics.shapes.ui;
 
 import graphics.shapes.*;
+import graphics.shapes.Shape;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 import java.util.Iterator;
 
 public class ShapeDraftman implements ShapeVisitor {
@@ -106,6 +106,11 @@ public class ShapeDraftman implements ShapeVisitor {
             g.fillRect(c.getBounds().x, c.getBounds().y, 5, 5);
             g.fillRect(c.getBounds().x + c.getBounds().width, c.getBounds().y + c.getBounds().height, 5, 5);
         }
+    }
+
+    @Override
+    public void visitPolygon(SPolygon p) {
+        g.drawPolygon(p.getxPoints(), p.getyPoints(), p.getNbPoints());
     }
 
 }

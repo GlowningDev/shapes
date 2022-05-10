@@ -32,6 +32,7 @@ public class ShapesView extends View {
         return new ShapesController(this.getModel());
     }
 
+    @Override
     public boolean isFocusable() {
         return true;
     }
