@@ -55,4 +55,8 @@ public class SCollection extends Shape {
     public void add(Shape s) {
         this.shapes.add(s);
     }
+
+    public List<Shape> getShapes(){
+        return shapes;
+    }
 }
