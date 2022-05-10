@@ -62,6 +62,7 @@ public class ToolBar {
             public void actionPerformed(ActionEvent e) {
                 SCollection coll = editor.sview.getModel();
                 erase(coll);
+                editor.getContentPane().repaint();
             }
         });
 

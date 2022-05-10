@@ -24,7 +24,9 @@ public class SPolygon extends Shape {
 
 
     @Override
-    public Point getLoc() { return null;} //obtenir la localisation
+    public Point getLoc() {
+        return new Point(getBounds().x, getBounds().y);
+    } //obtenir la localisation
 
     @Override
     public void setLoc(Point p) {point.setLocation(p);} //definir la localisation
