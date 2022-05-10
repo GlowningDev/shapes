@@ -51,8 +51,10 @@ public class SCircle extends Shape {
         SCircle c = new SCircle(point.getLocation(), rad);
         c.addAttributes(new SelectionAttributes());
 
-        if (this.getAttributes(ColorAttributes.ID) != null)
-            c.addAttributes(this.getAttributes(ColorAttributes.ID));
+        if (this.getAttributes(ColorAttributes.ID) != null) {
+            ColorAttributes ca = (ColorAttributes) this.getAttributes(ColorAttributes.ID);
+            c.addAttributes(new ColorAttributes(ca.filled, ca.stroked, ca.filledColor, ca.strokedColor));
+        }
 
         return c;
     }

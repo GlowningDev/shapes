@@ -26,10 +26,10 @@ public class ShapeDraftman implements ShapeVisitor {
             ca = DEFAULTCOLORATTRIBUES;
 
 
-        if (sa.isEntered()){
+        /*if (sa.isEntered()){
             g.setColor(Color.black);
             g.drawRect(r.getBounds().x,r.getBounds().y,r.getBounds().width,r.getBounds().height);
-        }
+        }*/
 
         /*if(r.getRect().x>x  && x<r.getRect().x+r.getRect().width  && r.getRect().y>y && y<r.getRect().y+r.getRect().height){
             g.setColor(Color.black);

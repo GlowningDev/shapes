@@ -1,5 +1,6 @@
 package graphics.shapes;
 
+import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.ui.ShapeVisitor;
 
 import java.awt.*;
@@ -17,13 +18,18 @@ public class SCollection extends Shape {
 
     @Override
     public Point getLoc() {
-        return null;
+        return new Point(getBounds().x, getBounds().y);
     }
 
     @Override
     public void setLoc(Point p) {
-        for (Shape s: shapes)
-            s.setLoc(p);
+        int x = getLoc().x;
+        int y = getLoc().y;
+
+        for (Shape s: shapes) {
+            System.out.println();
+            s.translate(p.x - x, p.y - y);
+        }
     }
 
     @Override
@@ -62,7 +68,14 @@ public class SCollection extends Shape {
 
     @Override
     public Object clone() {
-        return null;
+        SCollection coll = new SCollection();
+        for (Shape s: shapes) {
+            Shape clone = (Shape) s.clone();
+            coll.add(clone);
+        }
+
+        coll.addAttributes(new SelectionAttributes());
+        return coll;
     }
 
     public List<Shape> getShapes(){

@@ -1,6 +1,8 @@
 package graphics.shapes;
 
+import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
+import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.ui.ShapeVisitor;
 import graphics.shapes.ui.ShapesView;
 
@@ -53,6 +55,14 @@ public class SText extends Shape {
     @Override
     public Object clone() {
         SText t = new SText(point.getLocation(),getText());
+        t.addAttributes(new SelectionAttributes());
+
+        if (this.getAttributes(ColorAttributes.ID) != null) {
+            ColorAttributes ca = (ColorAttributes) this.getAttributes(ColorAttributes.ID);
+            t.addAttributes(new ColorAttributes(ca.filled, ca.stroked, ca.filledColor, ca.strokedColor));
+        }
+
+        t.addAttributes(new FontAttributes());
         return t;
     }
 }

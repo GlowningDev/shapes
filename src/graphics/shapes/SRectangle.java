@@ -53,8 +53,10 @@ public class SRectangle extends Shape {
         SRectangle r = new SRectangle(rect.getLocation(), rect.getBounds().width, rect.getBounds().height);
         r.addAttributes(new SelectionAttributes());
 
-        if (this.getAttributes(ColorAttributes.ID) != null)
-            r.addAttributes(this.getAttributes(ColorAttributes.ID));
+        if (this.getAttributes(ColorAttributes.ID) != null) {
+            ColorAttributes ca = (ColorAttributes) this.getAttributes(ColorAttributes.ID);
+            r.addAttributes(new ColorAttributes(ca.filled, ca.stroked, ca.filledColor, ca.strokedColor));
+        }
 
         return r;
     }

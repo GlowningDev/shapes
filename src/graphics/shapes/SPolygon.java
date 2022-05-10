@@ -1,5 +1,7 @@
 package graphics.shapes;
 
+import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.ui.ShapeVisitor;
 
 import java.awt.*;
@@ -28,7 +30,12 @@ public class SPolygon extends Shape {
     public void setLoc(Point p) {point.setLocation(p);} //definir la localisation
 
     @Override
-    public void translate(int x, int y) {point.translate(x,y);}
+    public void translate(int x, int y) {
+        for (int i = 0; i < nbPoints; i++) {
+            xPoints[i] += x;
+            yPoints[i] += y;
+        }
+    }
 
     public int[] mini(int[] tab) {
         int min = Integer.MAX_VALUE;
@@ -43,20 +50,20 @@ public class SPolygon extends Shape {
     }
 
     public int maxi(int[] tab){
-            int max = Integer.MIN_VALUE;
-            for (int i = 0; i < tab.length; i++) {
-                if (tab[i] > max) {
-                    max = tab[i];
-                }
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < tab.length; i++) {
+            if (tab[i] > max) {
+                max = tab[i];
             }
-            return max;
         }
+        return max;
+    }
 
     @Override
     public Rectangle getBounds() {
         int minX= mini(xPoints)[0];
         int maxX= maxi(xPoints);
-        int minY= mini(xPoints)[1];
+        int minY= mini(yPoints)[0];
         int maxY= maxi(yPoints);
         return new Rectangle(minX, minY, maxX - minX, maxY- minY);
     }
@@ -92,6 +99,13 @@ public class SPolygon extends Shape {
     @Override
     public Object clone() {
         SPolygon p = new SPolygon(getxPoints(),getyPoints(),getNbPoints());
+        p.addAttributes(new SelectionAttributes());
+
+        if (this.getAttributes(ColorAttributes.ID) != null) {
+            ColorAttributes ca = (ColorAttributes) this.getAttributes(ColorAttributes.ID);
+            p.addAttributes(new ColorAttributes(ca.filled, ca.stroked, ca.filledColor, ca.strokedColor));
+        }
+
         return p;
     }
 }

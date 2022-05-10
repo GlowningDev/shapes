@@ -14,6 +14,7 @@ public class Editor extends JFrame
 {
 	ShapesView sview;
 	SCollection model;
+	public static ButtonState state = ButtonState.NORMAL;
 
 	public Editor()
 	{

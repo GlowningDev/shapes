@@ -181,7 +181,7 @@ public class MenuBar extends JFrame {
         itemColor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Color color = chooseColor();
+                chooseColor();
             }
         });
 
